@@ -61,9 +61,15 @@
             if ($result->num_rows > 0) {
                 header('Location: home.php');
             } else {
-                echo "<script language='javascript'>";
-                echo "alert('Incorrect username and password')";
-                echo "</script>";
+                $sql = "SELECT * FROM user WHERE username='$username' AND `password`='$password'";
+                $result = $conn->query($sql);
+                if ($result->num_rows > 0) {
+                    header('Location: staff.php');
+                } else {
+                    echo "<script language='javascript'>";
+                    echo "alert('Incorrect username and password')";
+                    echo "</script>";
+                }
             }
 
             // Close Connection
