@@ -41,6 +41,8 @@
     </div>
 
     <?php
+
+        session_start();
         
         if (isset($_POST['login'])) {
             $username = $_POST['username'];
@@ -59,6 +61,8 @@
             $sql = "SELECT * FROM user WHERE username='$username' AND `password`='$hashed_pass'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
+                $row = mysqli_fetch_array($result);
+                $_SESSION['name'] = $row['firstname'] . " " . $row['lastname']; //Session ชื่อของ Customer
                 header('Location: home.php');
             } else {
                 $sql = "SELECT * FROM user WHERE username='$username' AND `password`='$password'";
