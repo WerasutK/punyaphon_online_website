@@ -28,19 +28,25 @@
         <form action="regis.php" method="POST">
             <div class="form-group">
                 <label for="firstname">First name :</label>
-                <input type="text" class="form-control" id="firstname" name="firstname" minlength='2' pattern="[A-Za-z]{2,}|[ก-๙]{2,}" title="Must be Thai / Eng language and contain at least 2 characters" required>
+                <input type="text" class="form-control" id="firstname" name="firstname" minlength='2' placeholder="John"
+                    pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
+                    title="Must be Thai / Eng language and contain at least 2 characters" required>
             </div>
             <div class="form-group">
                 <label for="lastname">Lastname :</label>
-                <input type="text" class="form-control" id="lastname" name="lastname" minlength='2' pattern="[A-Za-z]{2,}|[ก-๙]{2,}" title="Must be Thai / Eng language and contain at least 2 characters" required>
+                <input type="text" class="form-control" id="lastname" name="lastname" minlength='2' placeholder="Smith"
+                    pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
+                    title="Must be Thai / Eng language and contain at least 2 characters" required>
             </div>
             <div class="form-group">
                 <label for="username">Username :</label>
-                <input type="text" class="form-control" id="username" name="username" pattern="[A-Za-z0-9]{1,}" required>
+                <input type="text" class="form-control" id="username" name="username"  placeholder="JS123" pattern="[A-Za-z0-9]{1,}"
+                    required>
             </div>
             <div class="form-group">
                 <label for="password">Password :</label>
-                <input type="password" class="form-control" id="password" name="password" pattern=".{6,}" title="Must contain at least 6 characters" required>
+                <input type="password" class="form-control" id="password" name="password" placeholder="******" pattern=".{6,}"
+                    title="Must contain at least 6 characters" required>
             </div>
             <!-- <div class="form-group">
                 <label for="repeat-password">Repeat-Password :</label>
@@ -48,20 +54,21 @@
             </div> -->
             <div class="form-group">
                 <label for="email">Email :</label>
-                <input type="email" class="form-control" id="email" name="email">
+                <input type="email" class="form-control" id="email" name="email" placeholder="test123@hotmail.com">
             </div>
             <div class="form-group">
                 <label for="address">Address :</label>
-                <input type="text" class="form-control" id="address" name="address">
+                <input type="text" class="form-control" id="address" name="address" placeholder="123/45 Sarun Road">
             </div>
             <div class="form-group">
                 <label for="phone1">Phone Number :</label>
-                <input type="tel" class="form-control" id="phone1" name="phone1" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="Only 10 numbers"
-                    required>
+                <input type="tel" class="form-control" id="phone1" name="phone1" placeholder="089xxxxxxx" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                    title="Only 10 numbers" required>
             </div>
             <div class="form-group">
                 <label for="phone2">Phone Number (Optional) :</label>
-                <input type="tel" class="form-control" id="phone2" name="phone2" pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="Only 10 numbers">
+                <input type="tel" class="form-control" id="phone2" name="phone2" placeholder="089xxxxxxx" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                    title="Only 10 numbers">
             </div>
             <button type="submit" class="btn btn-primary" name="register">Register</button>
             <br><br>
