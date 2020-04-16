@@ -45,6 +45,7 @@
         if (isset($_POST['login'])) {
             $username = $_POST['username'];
             $password = $_POST['password'];
+            $hashed_pass = hash('sha512', $password);
 
             // Create Connection
             $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
@@ -55,7 +56,7 @@
             }
 
             // Check username
-            $sql = "SELECT * FROM user WHERE username='$username' AND `password`='$password'";
+            $sql = "SELECT * FROM user WHERE username='$username' AND `password`='$hashed_pass'";
             $result = $conn->query($sql);
             if ($result->num_rows > 0) {
                 header('Location: home.php');

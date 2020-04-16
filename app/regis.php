@@ -75,6 +75,7 @@
             $username = $_POST['username'];
             $password = $_POST['password'];
             // $repeatPass = $_POST['repeat-password'];
+            $hashed_pass = hash('sha512', $password);
             $firstname = $_POST['firstname'];
             $lastname = $_POST['lastname'];
             $email = $_POST['email'];
@@ -107,7 +108,7 @@
 
             // Insert Data
             $sql = "INSERT INTO user (username, `password`, firstname, lastname, email, phone1, phone2, `type`)
-                    VALUES ('$username', '$password', '$firstname', '$lastname', '$email', '$phone1', '$phone2', '$type')";
+                    VALUES ('$username', '$hashed_pass', '$firstname', '$lastname', '$email', '$phone1', '$phone2', '$type')";
             $sql1 = "INSERT INTO customer (user_username, `address`)
                      VALUES ('$username', '$address')";
 
