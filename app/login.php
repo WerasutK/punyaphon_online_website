@@ -88,6 +88,7 @@
             if ($result->num_rows > 0) {
                 $row = mysqli_fetch_array($result);
                 $_SESSION['name'] = $row['firstname'] . " " . $row['lastname']; //Session ชื่อของ Customer
+                $_SESSION['username'] = $row['username'];
                 header('Location: home.php');
             } else {
                 $sql = "SELECT * FROM user WHERE username='$username' AND `password`='$password'";
