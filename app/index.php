@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="css/style_index.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     
@@ -17,13 +21,21 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
-
+    <style>
+        body{
+            background-image: url('images/background.jpg');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+    </style>
     <title>Punyaphon's Farm</title>
 </head>
 
 <body>
-    <div class="container" style="margin-top: 10%;text-align: center;">
-        <h1>Punyaphon's Farm</h1>
+    <div class="container" style="text-align: center;">
+        <img src="images/Logo.png" style="width:1050px;height:400px;"><br><br>
+        <h1>Welcome to Punyaphon's Farm</h1>
         <hr>
         <a href="login.php" class="btn btn-info" role="button">Log in</a>
         <a href="regis.php" class="btn btn-secondary" role="button">Register</a>
