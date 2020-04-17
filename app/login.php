@@ -93,6 +93,8 @@
                 $sql = "SELECT * FROM user WHERE username='$username' AND `password`='$password'";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
+                    $row = mysqli_fetch_array($result);
+                    $_SESSION['name'] = $row['firstname'] . " " . $row['lastname']; //Session ชื่อของ Staff
                     header('Location: staff.php');
                 } else {
                     echo "<script language='javascript'>";
