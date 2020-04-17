@@ -45,12 +45,22 @@
                     title="Must be Thai / Eng language and contain at least 2 characters" required>
             </div>
             <div class="form-group">
-                <label for="unit_price">Price :</label>
+                <label for="unit_price">Price per unit :</label>
                 <input type="number" class="form-control" id="unit_price" name="unit_price" placeholder="100.25" required>
             </div>
             <div class="form-group">
                 <label for="amount">Amount :</label>
                 <input type="number" class="form-control" id="amount" name="amount" placeholder="25.00">
+            </div>
+            <div class="form-group">
+                <label for="unit">Unit (หน่วย) :</label>
+                <input type="text" class="form-control" id="unit" name="unit" placeholder="kg." minlength='2' placeholder="John"
+                    pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
+                    title="Must be Thai / Eng language and contain at least 2 characters" required>
+            </div>
+            <div class="form-group">
+                <label for="description">Description :</label>
+                <input type="text" class="form-control" id="description" name="description" placeholder="This is a ...">
             </div>
             <div class="form-group">
                 <label for="image">Image :</label>
@@ -75,6 +85,8 @@
             $amount = $_POST['amount'];
             $image = $_FILES['image']['name'];
             $username = $_SESSION['username'];
+            $unit = $_POST['unit'];
+            $description = $_POST['description'];
             date_default_timezone_set("Asia/Bangkok");
             $dt = date("Y-m-d H:i:s");
 
@@ -90,8 +102,8 @@
             }
 
             // Insert Data into Database : Product Table
-            $sql = "INSERT INTO product (unit_price, product_name, amount, `image`)
-                    VALUES ($unit_price, '$product_name', $amount, '$image')";
+            $sql = "INSERT INTO product (unit_price, product_name, amount, `image`, unit, `description`)
+                    VALUES ($unit_price, '$product_name', $amount, '$image', '$unit', '$description')";
 
             if ($conn->query($sql) === TRUE) {
                 if ((move_uploaded_file($_FILES['image']['tmp_name'], $target)) || $image == "") {
