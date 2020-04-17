@@ -35,23 +35,23 @@
 				<h3 style="color: black;">Login</h3>
 			</div>
 			<div class="card-body">
-				<form>
+				<form action="login.php" method="POST">
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" class="form-control" placeholder="username">
+						<input type="text" name="username" class="form-control" placeholder="username">
 						
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" class="form-control" placeholder="password">
+						<input type="password" name="password" class="form-control" placeholder="password">
 					</div>
 					<div class="form-group">
 						<center> 
-                            <input type="submit" value="Login" style="margin-top: 20px"class="btn btn-outline-dark">
+                            <input type="submit" name="login" value="Login" style="margin-top: 20px"class="btn btn-outline-dark">
                         </center>
 					</div>
 				</form>
@@ -64,7 +64,6 @@
 		</div>
 	</div>
 </div>
-
 
     <?php
 
@@ -107,6 +106,7 @@
         }
 
     ?>
+
 </body>
 
 </html>
