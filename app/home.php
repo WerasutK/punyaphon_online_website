@@ -1,11 +1,8 @@
 <?php
-    session_start();
-    
-    if (!$_SESSION['username']){
-        header("Location: index.php");
-    }else{
 
-    if (!isset($_SESSION['name'])) {
+    session_start();
+
+    if (!isset($_SESSION['username'])) {
         header('Location: login.php');
     }
 
@@ -25,5 +22,3 @@
     <a href="logout.php" class="btn btn-info" role="button">Log out</a>
 </body>
 </html>
-
-    <?php } ?>
