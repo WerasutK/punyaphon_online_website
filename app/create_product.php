@@ -75,7 +75,8 @@
             $amount = $_POST['amount'];
             $image = $_FILES['image']['name'];
             $username = $_SESSION['username'];
-            $dt = new DateTime('now');
+            date_default_timezone_set("Asia/Bangkok");
+            $dt = date("Y-m-d H:i:s");
 
             // Path to store the uploaded image
             $target = "product/".basename($_FILES['image']['name']);
@@ -88,7 +89,7 @@
                 die("Connection Failed: " . $conn->connect_error);
             }
 
-            // Insert Data into Database
+            // Insert Data into Database : Product Table
             $sql = "INSERT INTO product (unit_price, product_name, amount, `image`)
                     VALUES ($unit_price, '$product_name', $amount, '$image')";
 
@@ -103,6 +104,17 @@
                     echo "</script>";
                 }
             }
+
+            // SELECT product_id recently create FROM product TABLE
+            $sql = "SELECT product_id FROM product ORDER BY product_id DESC LIMIT 1";
+            $result = $conn->query($sql);
+            $row = mysqli_fetch_array($result);
+            $product_id = $row['product_id'];
+
+            // Insert Data into Database : STAFF_PRODUCT table
+            $sql = "INSERT INTO staff_product (staff_user_username, product_product_id, datetime, manage_type)
+                    VALUES ('$username', $product_id, '$dt', 'insert')";
+            $conn->query($sql);
 
             // Close Connection
             $conn->close();
