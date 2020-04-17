@@ -96,6 +96,7 @@
                 if ($result->num_rows > 0) {
                     $row = mysqli_fetch_array($result);
                     $_SESSION['name'] = $row['firstname'] . " " . $row['lastname']; //Session ชื่อของ Staff
+                    $_SESSION['username'] = $row['username'];
                     header('Location: staff.php');
                 } else {
                     echo "<script language='javascript'>";
