@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" href="css/style_regis.css">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.11/css/all.css">
@@ -27,98 +27,93 @@
 </head>
 
 <body>
-<center>
-<div class="container mt-5">
-<div class="card bg-light mb-4" style="width: 600px;">
-<article class="card-body mx-auto" style="width: 500px;">
-    <h4 class="card-title mt-3 text-center">Create Account</h4>
-    <hr>
-	<form action="regis.php" method="POST">
-	<div class="form-group input-group">
-        <div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-		</div>
-        <input type="text" class="form-control" id="firstname" name="firstname" minlength='2' placeholder="First name"
-            pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
-            title="Must be Thai / Eng language and contain at least 2 characters" required>
-    </div> <!-- form-group// -->
+    <center>
+        <div class="container mt-5">
+            <div class="card bg-light mb-4" style="width: 600px;">
+                <article class="card-body mx-auto" style="width: 500px;">
+                    <h4 class="card-title mt-3 text-center">Create Account</h4>
+                    <hr>
+                    <form action="regis.php" method="POST">
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                            </div>
+                            <input type="text" class="form-control" id="firstname" name="firstname" minlength='2'
+                                placeholder="First name" pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
+                                title="Must be Thai / Eng language and contain at least 2 characters" required>
+                        </div> <!-- form-group// -->
 
-    <div class="form-group input-group">
-		<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-		</div>
-        <input type="text" class="form-control" id="lastname" name="lastname" minlength='2' placeholder="Last name"
-            pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
-            title="Must be Thai / Eng language and contain at least 2 characters" required>
-    </div> <!-- form-group// -->
-    <hr>
-    <div class="form-group input-group">
-		<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fas fa-user-edit"></i> </span>
-		</div>
-        <input type="text" class="form-control" id="username" name="username"  placeholder="User name" pattern="[A-Za-z0-9]{1,}"
-            required>
-    </div> <!-- form-group// -->
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-user"></i> </span>
+                            </div>
+                            <input type="text" class="form-control" id="lastname" name="lastname" minlength='2'
+                                placeholder="Last name" pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
+                                title="Must be Thai / Eng language and contain at least 2 characters" required>
+                        </div> <!-- form-group// -->
+                        <hr>
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fas fa-user-edit"></i> </span>
+                            </div>
+                            <input type="text" class="form-control" id="username" name="username"
+                                placeholder="User name" pattern="[A-Za-z0-9]{1,}" required>
+                        </div> <!-- form-group// -->
 
-    <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fas fa-key"></i> </span>
-		</div>
-        <input type="password" class="form-control" id="password" name="password" placeholder="Create password" pattern=".{6,}"
-            title="Must contain at least 6 characters" required>
-    </div> <!-- form-group// -->
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fas fa-key"></i> </span>
+                            </div>
+                            <input type="password" class="form-control" id="password" name="password"
+                                placeholder="Create password" pattern=".{6,}" title="Must contain at least 6 characters"
+                                required>
+                        </div> <!-- form-group// -->
 
-    <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-		 </div>
-         <input type="email" class="form-control" id="email" name="email" placeholder="Email address">
-    </div> <!-- form-group// -->
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                            </div>
+                            <input type="email" class="form-control" id="email" name="email"
+                                placeholder="Email address">
+                        </div> <!-- form-group// -->
 
-    <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fas fa-home"></i> </span>
-		 </div>
-         <input type="text" class="form-control" id="address" name="address" placeholder="Address">
-    </div> <!-- form-group// -->
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fas fa-home"></i> </span>
+                            </div>
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                        </div> <!-- form-group// -->
 
-    <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-		</div>
-    	<input type="tel" class="form-control" id="phone1" name="phone1" placeholder="Phone number" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
-            title="Only 10 numbers" required>
-    </div> <!-- form-group// -->
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
+                            </div>
+                            <input type="tel" class="form-control" id="phone1" name="phone1" placeholder="Phone number"
+                                pattern="[0-9]{3}[0-9]{3}[0-9]{4}" title="Only 10 numbers" required>
+                        </div> <!-- form-group// -->
 
-    <div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fas fa-phone"></i> </span>
-		</div>
-    	<input type="tel" class="form-control" id="phone2" name="phone2" placeholder="Phone number (Optional)" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
-            title="Only 10 numbers">
-    </div> <!-- form-group// -->
+                        <div class="form-group input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"> <i class="fas fa-phone"></i> </span>
+                            </div>
+                            <input type="tel" class="form-control" id="phone2" name="phone2"
+                                placeholder="Phone number (Optional)" pattern="[0-9]{3}[0-9]{3}[0-9]{4}"
+                                title="Only 10 numbers">
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <button type="submit" name="register" class="btn btn-dark btn-block"> Create Account </button>
+                        </div> <!-- form-group// -->
+                        <p class="text-center">Have an account? <a href="login.php">Log In</a> </p>
+                    </form>
+                </article>
+            </div> <!-- card.// -->
 
-    <!--<div class="form-group input-group">
-    	<div class="input-group-prepend">
-		    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-		</div>
-        <input class="form-control" placeholder="Repeat password" type="password">
-    </div> <!-- form-group// -->      
-    <hr>
-    <div class="form-group">
-        <button type="submit" class="btn btn-dark btn-block"> Create Account  </button>
-    </div> <!-- form-group// -->      
-    <p class="text-center">Have an account? <a href="login.php">Log In</a> </p>   
+        </div>
+        <!--container end.//-->
 
-</form>
-</article>
-</div> <!-- card.// -->
-
-</div> 
-<!--container end.//-->
-
-    </div>
-</center>
+        </div>
+    </center>
 
     <?php
         
