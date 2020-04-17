@@ -1,0 +1,13 @@
+body{
+    background-image: url('../images/background.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+}
+
+.input-group-prepend span{
+    width: 43px;
+    background-color: lightpink;
+    color: black;
+    border:0 !important;
+}

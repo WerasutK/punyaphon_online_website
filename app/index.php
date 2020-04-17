@@ -33,7 +33,7 @@
 </head>
 
 <body>
-    <div class="container" style="text-align: center;">
+    <div class="container" style="margin-top: 50px; text-align: center;">
         <img src="images/Logo.png" style="width:1050px;height:400px;"><br><br>
         <h1>Welcome to Punyaphon's Farm</h1>
         <hr>

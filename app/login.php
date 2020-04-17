@@ -35,23 +35,23 @@
 				<h3 style="color: black;">Login</h3>
 			</div>
 			<div class="card-body">
-				<form action="login.php" method="POST">
+				<form>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-user"></i></span>
 						</div>
-						<input type="text" name="username" class="form-control" placeholder="username">
+						<input type="text" class="form-control" placeholder="username">
 						
 					</div>
 					<div class="input-group form-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text"><i class="fas fa-key"></i></span>
 						</div>
-						<input type="password" name="password" class="form-control" placeholder="password">
+						<input type="password" class="form-control" placeholder="password">
 					</div>
 					<div class="form-group">
 						<center> 
-                            <input type="submit" name="login" value="Login" style="margin-top: 20px"class="btn btn-outline-dark">
+                            <input type="submit" value="Login" style="margin-top: 20px"class="btn btn-outline-dark">
                         </center>
 					</div>
 				</form>
@@ -64,6 +64,7 @@
 		</div>
 	</div>
 </div>
+
 
     <?php
 
@@ -88,15 +89,11 @@
             if ($result->num_rows > 0) {
                 $row = mysqli_fetch_array($result);
                 $_SESSION['name'] = $row['firstname'] . " " . $row['lastname']; //Session ชื่อของ Customer
-                $_SESSION['username'] = $row['username'];
                 header('Location: home.php');
             } else {
                 $sql = "SELECT * FROM user WHERE username='$username' AND `password`='$password'";
                 $result = $conn->query($sql);
                 if ($result->num_rows > 0) {
-                    $row = mysqli_fetch_array($result);
-                    $_SESSION['name'] = $row['firstname'] . " " . $row['lastname']; //Session ชื่อของ Staff
-                    $_SESSION['username'] = $row['username'];
                     header('Location: staff.php');
                 } else {
                     echo "<script language='javascript'>";
@@ -110,7 +107,6 @@
         }
 
     ?>
-
 </body>
 
 </html>
