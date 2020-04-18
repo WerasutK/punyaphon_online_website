@@ -14,6 +14,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="css/style_home.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -23,6 +24,10 @@
         body {
             font-family: 'Prompt', sans-serif;
             text-align: center;
+
+        }
+        footer{
+            margin-top: 100px; 
         }
         img {
             width: 100px;
@@ -30,6 +35,7 @@
     </style>
 </head>
 <body>
+
 <?php
     // Create Connection
     $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
@@ -39,20 +45,19 @@
         die("Connection Failed: " . $conn->connect_error);
     }
 
-    echo "<a href='logout.php' class='btn btn-info' role='button'>Log out</a>";
-    echo "<h1>Home page!</h1>";
-    echo "<h3>สวัสดีคุณ" . $_SESSION['name'] . "</h3>";
-    echo "<h1>User : " . $_SESSION['username'] .  "</h3>";
+    echo "<div class='btn-group'><h1>Home</h1> </div>" . "<a href='logout.php' class='btn btn-outline-primary' role='button'> Log out</a> </div>";
+    echo "<hr>"."<h4>สวัสดีคุณ " . $_SESSION['name']  ."  :)". "</h4>";
+    echo "<h5>User : " . $_SESSION['username'] .  "</h5>";
 
     $sql = "SELECT * FROM product";
     $result = $conn->query($sql);
-        
+
     echo "<div class='container'>";
     echo "<div class='row'>";
 
     while($row = $result->fetch_assoc()) {
         echo "<div class='col-md-4'>";
-        echo "<div class='card' style='width: 18rem;'>";
+        echo "<div class='card' style='width: 20srem;'>";
         echo "<h5 class='card-title'>" . $row['product_name'] . "</h5>";
         echo "<img class='card-img-top' src='" . $row['image'] . "'>";
         echo "<div class='card-body'>";
@@ -62,7 +67,7 @@
         echo "<div class='card-body'>";
         echo '<form action="order.php" method="POST">';
         echo '<input type="text" name="amount" class="form-control" value="1"/>';
-        echo "<button type='submit' class='btn btn-primary px-4' name='add_product' value=".$row['product_id'].">สั่งซื้อ</button>"; //กดปุ่ม Submit จะส่งค่า ID และ จำนวนที่สั่งไปยังหน้า order
+        echo "<button type='submit' class='btn btn-info px-4'style='margin-top:20px;'name='add_product' value=".$row['product_id'].">สั่งซื้อ</button>"; //กดปุ่ม Submit จะส่งค่า ID และ จำนวนที่สั่งไปยังหน้า order
         echo '</form>';
         echo "</div>";
         echo "</div>";
@@ -70,7 +75,7 @@
     }
     echo "</div>";
     echo "</div>";
-
+    echo "<footer></footer>";
     // Close Connection
     $conn->close();
 ?>

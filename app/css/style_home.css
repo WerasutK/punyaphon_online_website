@@ -1,0 +1,38 @@
+body{
+    background-image: url('../images/background3.png');
+    background-size: cover;
+    background-position-y: 20px;
+    background-position-x: -160px;
+    background-repeat: no-repeat;
+}
+
+.card{
+    text-align: center;
+    margin-top: 50px;
+}
+
+.card-title{
+    color: white;
+    background-color: lightskyblue;
+    height: 40px;
+    font-weight: 600;
+    padding-top: 7px;
+}
+
+.card-body{
+    background-color: white;
+}
+
+h1 {
+    padding-right: 5px;
+    border-right: solid;
+}
+
+.btn-group{
+    margin-top: 20px;
+}
+
+.btn-outline-primary{
+    margin-top: 15px;
+    margin-left: 10px;
+}
