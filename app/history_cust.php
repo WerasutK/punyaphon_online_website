@@ -39,28 +39,33 @@
         die("Connection Failed: " . $conn->connect_error);
     }
 
-    $sql = "SELECT * FROM history"; //Select เฉพาะ history ของลูกค้าคนนั้น (ยังไม่ได้ทำ)
-    $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
-    $amount = $_SESSION['amount'];
-    $test = $_POST['confirm'];
+    $total_price = $_SESSION['Total_Price']; //total price
 
-    if (isset($_POST['confirm'])) {
+    //ถ้ามีค่า confirm และ image  คือการส่งสลิปโอนเงินแล้ว
+    if (isset($_POST['confirm']) && (isset($_FILES['image']['name']) != "")) {
         $image = $_FILES['image']['name'];
-        $status = "Checking"; //status รอตรวจสอบการชำระเงิน
-        $total_price = $row['unit_price']*$amount;
+        // Path to store the uploaded image
+        $target = "receipt/".basename($_FILES['image']['name']);
+
+        $status = "checking"; //status รอตรวจสอบการชำระเงิน
         // Insert Data to Database : Payment Table
         $sql = "INSERT INTO payment (`status`,transaction_image ,total_price)
                 VALUES ('$status', '$image', '$total_price')";
         if (($conn->query($sql) === TRUE)) {
-            echo '<script language="javascript">';
-            echo 'alert("success!")';
-            echo '</script>';
+            if ((move_uploaded_file($_FILES['image']['tmp_name'], $target))) {
+                echo '<script language="javascript">';
+                echo 'alert("success!")';
+                echo '</script>';
+            }else{
+                echo "<script language='javascript'>";
+                    echo "alert('There was a problem!')";
+                    echo "</script>";
+                
+            }
+            
         }
-    }
-    if (isset($_POST['later'])){
-        $status = "Waiting"; //status สำหรับรอการจ่ายเงิน
-        $total_price = $row['unit_price']*$amount;
+    }else if (isset($_POST['later'])){  //ถ้ามีค่า later คือการจ่ายภายหลัง
+        $status = "waiting"; //status สำหรับรอการจ่ายเงิน
         // Insert Data to Database : Payment Table
         $sql = "INSERT INTO payment (`status` ,total_price)
                 VALUES ('$status', '$total_price')";
@@ -68,7 +73,18 @@
             echo '<script language="javascript">';
             echo 'alert("success!")';
             echo '</script>';
+    }else{
+        echo "<script language='javascript'>";
+            echo "alert('There was a problem!')";
+            echo "</script>";
+        
+        }
+    }else{  //กรณีที่เหลือ เช่น กดผิดปุ่ม
+        echo "<script language='javascript'>";
+        echo "alert('กดผิดปุ่ม')";
+        echo "</script>";
     }
-}
-
+    $sql = "SELECT * FROM history"; //Select เฉพาะ history ของลูกค้าคนนั้น (ยังไม่ได้ทำ)
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
 ?>
