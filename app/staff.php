@@ -36,7 +36,6 @@
 
     <div class="container">
         <h1>Administrator Page</h1>
-        <h3>สวัสดีคุณ <?php echo $_SESSION['name']; ?></h3>
         <h3>สวัสดีคุณ <?php echo $_SESSION['username']; ?></h3>
         <form action="create_product.php" method="POST">
             <input type="submit" name="createProduct" value="Create New Product" style="margin-top: 20px"class="btn btn-outline-dark">
@@ -69,7 +68,7 @@
             echo "<p class='card-text'>จำนวนที่เหลือ : " . $row['amount'] ." ". $row['unit'] .  "</p>";  // จำนวนที่เหลือ
             echo "</div>";
             echo "<div class='card-body'>";
-            echo '<form action="update_product.php" method="POST">';
+            echo '<form action="update_product_page.php" method="POST">';
             echo "<button type='submit' class='btn btn-primary px-4' name='updateProduct' value=".$row['product_id'].">Update</button>"; // If submitted, will send product_id to ...
             echo '</form>';
             echo '<form action="#" method="POST">';
@@ -98,7 +97,7 @@
             // Session staff username
             $username = $_SESSION['username'];
             $_SESSION['username'] = $username;
-            header("Location: update_product.php");
+            header("Location: update_product_page.php");
         }
     ?>
 

@@ -33,70 +33,67 @@
     <title>Administrator Page</title>
 </head>
 <body>
+    <?php
+        // Get all Data from form action
+        $username = $_SESSION['username'];
+        $product_id = $_POST['update_product'];
+        $product_name = $_POST['product_name'];
+        $unit_price = $_POST['unit_price'];
+        $amount = $_POST['amount'];
+        $unit = $_POST['unit'];
+        $description = $_POST['description'];
+        $image = $_FILES['image']['name'];
+        date_default_timezone_set("Asia/Bangkok");
+        $dt = date("Y-m-d H:i:s");
 
-    <div class="container">
-        <h1>Administrator Page</h1>
-        <h3>สวัสดีคุณ <?php echo $_SESSION['username']; ?></h3>
-        <h3>สวัสดีคุณ <?php echo $_POST['updateProduct']; ?></h3>
-        <a href="logout.php" class="btn btn-info" role="button">Log out</a>
-        <a href="staff.php" class='btn btn-info' role="button">Back</a>
+        // Path to store the uploaded image
+        $target = "product/".basename($_FILES['image']['name']);
 
-        <?php
-            $username = $_SESSION['username'];
-            $product_id = $_POST['updateProduct'];
+        // Create Connection
+        $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
 
-            // Create Connection
-            $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
-
-            // Check Connection
-            if ($conn->connect_error) {
-                die("Connection Failed: " . $conn->connect_error);
+        // Check Connection
+        if ($conn->connect_error) {
+            die("Connection Failed: " . $conn->connect_error);
+        }
+        // Update Data: Product table
+        if ($image == "") {
+            $sql = "UPDATE product SET product_name='$product_name', unit_price='$unit_price', amount='$amount', unit='$unit', `description`='$description'
+                    WHERE product_id='$product_id'";
+            if ($conn->query($sql)) {
+                echo "<script language='javascript'>";
+                echo "alert('Update Completed!')";
+                echo "</script>";
+            } else {
+                echo "<script language='javascript'";
+                echo "alert('Update Failed!')";
+                echo "</script>";
             }
+        } else {
+            $sql = "UPDATE product SET product_name='$product_name', unit_price='$unit_price', amount='$amount', unit='$unit', `description`='$description', `image`='$image'
+                    WHERE product_id='$product_id'";
+            if ($conn->query($sql)) {
+                echo "<script language='javascript'";
+                echo "alert('Update Completed!')";
+                echo "</script>";
+            } else {
+                echo "<script language='javascript'";
+                echo "alert('Update Failed!')";
+                echo "</script>";
+            }
+        }
 
-            // Select data you will update from product table
-            $sql = "SELECT * FROM product WHERE product_id='$product_id'";
-            $result = $conn->query($sql);
-            $row = $result->fetch_assoc();
-        
-            // Show data you selected to update
-            echo '<form action="#" method="POST" enctype="multipart/form-data">';
-            echo '<div class="form-group">
-                    <label for="product_name">Product Name :</label>
-                    <input type="text" class="form-control" id="product_name" name="product_name" value="' . $row['product_name'] . '" minlength="2" placeholder="John"
-                        pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
-                        title="Must be Thai / Eng language and contain at least 2 characters" required>
-                </div>';
-            echo '<div class="form-group">
-                    <label for="unit_price">Price per unit :</label>
-                    <input type="number" class="form-control" id="unit_price" name="unit_price" value="' . $row['unit_price'] . '" required>
-                </div>';
-            echo '<div class="form-group">
-                    <label for="amount">Amount :</label>
-                    <input type="number" class="form-control" id="amount" name="amount" value="' . $row['amount'] . '">
-                </div>';
-            echo '<div class="form-group">
-                    <label for="unit">Unit (หน่วย) :</label>
-                    <input type="text" class="form-control" id="unit" name="unit" value="' . $row['unit'] . '" minlength="2"
-                        pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
-                        title="Must be Thai / Eng language and contain at least 2 characters" required>
-                </div>';
-            echo '<div class="form-group">
-                    <label for="description">Description :</label>
-                    <input type="text" class="form-control" id="description" name="description" value="' . $row['description'] . '">
-                </div>';
-            echo '<div class="form-group">
-                    <label for="image">Image :</label>
-                    <input type="file" id="image" name="image">
-                </div>';
-            echo '<div class="form-group">
-				    <center> 
-                        <input type="submit" name="update_product" value="Update" style="margin-top: 20px"class="btn btn-outline-dark">
-                    </center>
-                </div>';
-            echo '</form>';
+        // Insert Data into Database : STAFF_PRODUCT table
+        $sql = "INSERT INTO staff_product (staff_user_username, product_product_id, datetime, manage_type)
+                VALUES ('$username', $product_id, '$dt', 'update')";
+        $conn->query($sql);
 
-            // Close Connection
-            $conn->close();
+        // Redirect to staff.php
+        $_SESSION['username'] = $username;
+        header('Location: staff.php');
+            
+        // Close Connection
+        $conn->close();
     ?>
 
     </div>
