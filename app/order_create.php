@@ -40,51 +40,38 @@
     }
 
     $total_price = $_SESSION['Total_Price']; //total price
+    date_default_timezone_set("Asia/Bangkok");
+    $dt = date("Y-m-d H:i:s");
+
 
     //ถ้ามีค่า confirm และ image  คือการส่งสลิปโอนเงินแล้ว
-    if (isset($_POST['confirm']) && (isset($_FILES['image']['name']) != "")) {
+    if (isset($_POST['confirm'])) {   //
         $image = $_FILES['image']['name'];
+        if ($image != ""){   //กรณีแนบภาพปกติ
         // Path to store the uploaded image
         $target = "receipt/".basename($_FILES['image']['name']);
 
         $status = "checking"; //status รอตรวจสอบการชำระเงิน
         // Insert Data to Database : Payment Table
-        $sql = "INSERT INTO payment (`status`,transaction_image ,total_price)
-                VALUES ('$status', '$image', '$total_price')";
-        if (($conn->query($sql) === TRUE)) {
-            if ((move_uploaded_file($_FILES['image']['tmp_name'], $target))) {
-                echo '<script language="javascript">';
-                echo 'alert("success!")';
-                echo '</script>';
-            }else{
-                echo "<script language='javascript'>";
+        $sql = "INSERT INTO payment (`status`, transaction_image, transaction_time, total_price)
+                VALUES ('$status', '$image', '$dt', '$total_price')";
+            if (($conn->query($sql) === TRUE)) {
+                if ((move_uploaded_file($_FILES['image']['tmp_name'], $target))) {
+                    echo '<script language="javascript">';
+                    echo 'alert("success!")';
+                    echo '</script>';
+                }else{
+                    echo "<script language='javascript'>";
                     echo "alert('There was a problem!')";
                     echo "</script>";
-                
+                }      
             }
-            
+        }else{      //กรณีไม่ได้แนบรูปภาพ
+            echo "<script>
+            alert('ไม่ได้แนบรูปภาพ');
+            window.location.href='home.php';
+            </script>";
         }
-    }else if (isset($_POST['later'])){  //ถ้ามีค่า later คือการจ่ายภายหลัง
-        $status = "waiting"; //status สำหรับรอการจ่ายเงิน
-        // Insert Data to Database : Payment Table
-        $sql = "INSERT INTO payment (`status` ,total_price)
-                VALUES ('$status', '$total_price')";
-        if (($conn->query($sql) === TRUE)) {
-            echo '<script language="javascript">';
-            echo 'alert("success!")';
-            echo '</script>';
-    }else{
-        echo "<script language='javascript'>";
-            echo "alert('There was a problem!')";
-            echo "</script>";
-        
-        }
-    }else{  //กรณีที่เหลือ เช่น กดผิดปุ่ม
-        echo "<script language='javascript'>";
-        echo "alert('กดผิดปุ่ม')";
-        echo "</script>";
     }
-    $sql = "SELECT * FROM history"; //Select เฉพาะ history ของลูกค้าคนนั้น (ยังไม่ได้ทำ)
-    $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
+    
 ?>
