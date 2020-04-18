@@ -45,44 +45,26 @@
     echo "<h1>User : " . $_SESSION['username'] .  "</h3>";
     $id = $_POST['add_product'];
     $amount = $_POST['amount'];
+    $_SESSION['amout'] = $amount;
     $sql = "SELECT * FROM product WHERE product_id = '$id'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
-    echo "<p>คุณได้ทำการสั่งซื้อสินค้า : " . $row['product_name'] . " จำนวน " . $amount . " " . $row['unit'] . "<p>"; #ดึง ID
+    echo "<p>คุณได้ทำการสั่งซื้อสินค้า : " . $row['product_name'] . " จำนวน " . $amount . " ชิ้น<p>"; #ดึง ID
     echo "<p>ราคารวม " . $row['unit_price']*$amount . " บาท<p>";
     echo '<form action="history_cust.php" method="POST" enctype="multipart/form-data">';
     echo '<div class="form-group">
             <label for="image">แนบรูปภาพชำระเงิน :</label>
-            <input type="file" id="iamge" name="iamge">
+            <input type="file" id="image" name="image">
             </div>';  // แนบรูปภาพสลิป
-    
-    echo "<button type='submit' class='btn btn-info px-4'style='margin-top:20px;'name='confirm' value=''>ส่ง</button>"; //ส่งใบสลิป
-    echo "<button type='submit' class='btn btn-info px-4'style='margin-top:20px;'name='later' value=''>ชำระภายหลัง</button>"; //ส่งภายหลัง
+            echo "</form>";
+    echo '<form action="history_cust.php" method="POST">';
+    echo "<button type='submit' class='btn btn-info px-4'style='margin-top:20px; name='confirm' value='1'>ส่ง</button>"; //ส่งใบสลิป
+    echo "</form>";
+    echo '<form action="history_cust.php" method="POST">';
+    echo "<button type='submit' class='btn btn-info px-4'style='margin-top:20px; name='later' value='1'>ชำระภายหลัง</button>"; //ส่งภายหลัง
+    echo "</form>";
 
-    if (isset($_POST['confirm'])) {
-        $image = $_FILES['image']['name'];
-        $status = "Checking"; //status รอตรวจสอบการชำระเงิน
-        $total_price = $row['unit_price']*$amount;
-        // Insert Data to Database : Payment Table
-        $sql = "INSERT INTO payment (`status`,transaction_image ,total_price)
-                VALUES ('$status', '$image', '$total_price')";
-        if (($conn->query($sql) === TRUE)) {
-            echo '<script language="javascript">';
-            echo 'alert("success!")';
-            echo '</script>';
-        }
-    }
-    if (isset($_POST['later'])){
-        $status = "Waiting"; //status สำหรับรอการจ่ายเงิน
-        // Insert Data to Database : Payment Table
-        $sql = "INSERT INTO payment (`status` ,total_price)
-                VALUES ('$status', '$total_price')";
-        if (($conn->query($sql) === TRUE)) {
-            echo '<script language="javascript">';
-            echo 'alert("success!")';
-            echo '</script>';
-    }
-}
+
     // Close Connection
     $conn->close();
 ?>
