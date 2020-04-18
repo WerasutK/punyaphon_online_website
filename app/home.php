@@ -27,7 +27,7 @@
         img {
             width: 100px;
         }
-        </style>
+    </style>
 </head>
 <body>
 <?php
@@ -45,7 +45,7 @@
     echo "<h1>User : " . $_SESSION['username'] .  "</h3>";
 
     $sql = "SELECT * FROM product";
-        $result = $conn->query($sql);
+    $result = $conn->query($sql);
         
     echo "<div class='container'>";
     echo "<div class='row'>";
@@ -68,8 +68,8 @@
         echo "</div>";
         echo "</div>";
     }
-        echo "</div>";
-        echo "</div>";
+    echo "</div>";
+    echo "</div>";
 
     // Close Connection
     $conn->close();

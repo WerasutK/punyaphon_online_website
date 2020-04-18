@@ -39,17 +39,66 @@
         <h3>สวัสดีคุณ <?php echo $_SESSION['name']; ?></h3>
         <h3>สวัสดีคุณ <?php echo $_SESSION['username']; ?></h3>
         <form action="create_product.php" method="POST">
-            <input type="submit" name="createProduct" value="Create Product" style="margin-top: 20px"class="btn btn-outline-dark">
+            <input type="submit" name="createProduct" value="Create New Product" style="margin-top: 20px"class="btn btn-outline-dark">
         </form>
         <a href="logout.php" class="btn btn-info" role="button">Log out</a>
     </div>
 
     <?php
+        // Create Connection
+        $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
+
+        // Check Connection
+        if ($conn->connect_error) {
+            die("Connection Failed: " . $conn->connect_error);
+        }
+
+        $sql = "SELECT * FROM product";
+        $result = $conn->query($sql);
+
+        echo "<div class='container'>";
+        echo "<div class='row'>";
+
+        while($row = $result->fetch_assoc()) {
+            echo "<div class='col-md-4'>";
+            echo "<div class='card' style='width: 18rem;'>";
+            echo "<h5 class='card-title'>" . $row['product_name'] . "</h5>";
+            echo "<img class='card-img-top' src='" . $row['image'] . "'>";
+            echo "<div class='card-body'>";
+            echo "<h5 class='card-text'>ราคา : " . $row['unit_price'] . " บาท</h5>";
+            echo "<p class='card-text'>จำนวนที่เหลือ : " . $row['amount'] ." ". $row['unit'] .  "</p>";  // จำนวนที่เหลือ
+            echo "</div>";
+            echo "<div class='card-body'>";
+            echo '<form action="update_product.php" method="POST">';
+            echo "<button type='submit' class='btn btn-primary px-4' name='updateProduct' value=".$row['product_id'].">Update</button>"; // If submitted, will send product_id to ...
+            echo '</form>';
+            echo '<form action="#" method="POST">';
+            echo "<button type='submit' class='btn btn-primary px-4' name='#' value=".$row['product_id'].">Delete</button>"; // If submitted, will send product_id to ...
+            echo '</form>';
+            echo "</div>";
+            echo "</div>";
+            echo "</div>";
+        }
+        echo "</div>";
+        echo "</div>";
+
+        // Close Connection
+        $conn->close();
+
+        // If Create Product button was pressed
         if (isset($_POST['createProduct'])) {
-            //Session staff username
+            // Session staff username
             $username = $_SESSION['username'];
             $_SESSION['username'] = $username;
             header("Location: create_product.php");
+        }
+
+        // If Update Product button was pressed
+        if (isset($_POST['updateProduct'])) {
+            // Session staff username
+            $username = $_SESSION['username'];
+            $_SESSION['username'] = $username;
+            header("Location: update_product.php");
         }
     ?>
 

@@ -54,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label for="unit">Unit (หน่วย) :</label>
-                <input type="text" class="form-control" id="unit" name="unit" placeholder="kg." minlength='2' placeholder="John"
+                <input type="text" class="form-control" id="unit" name="unit" placeholder="kg." minlength='2'
                     pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
                     title="Must be Thai / Eng language and contain at least 2 characters" required>
             </div>
