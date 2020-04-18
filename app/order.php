@@ -45,23 +45,25 @@
     echo "<h1>User : " . $_SESSION['username'] .  "</h3>";
     $id = $_POST['add_product'];
     $amount = $_POST['amount'];
-    $_SESSION['amout'] = $amount;
+    $_SESSION['amount'] = $amount;
     $sql = "SELECT * FROM product WHERE product_id = '$id'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
-    echo "<p>คุณได้ทำการสั่งซื้อสินค้า : " . $row['product_name'] . " จำนวน " . $amount . " ชิ้น<p>"; #ดึง ID
-    echo "<p>ราคารวม " . $row['unit_price']*$amount . " บาท<p>";
+    $_SESSION['Total_Price'] = $row['unit_price']*$amount;
+    echo "<p>คุณได้ทำการสั่งซื้อสินค้า : " . $row['product_name'] . " จำนวน " . $amount . " ชิ้น<p>"; //ชื่อ และ จำนวนสินค้าที่ลูกค้าสั่ง
+    echo "<p>ราคารวม " . $_SESSION['Total_Price'] . " บาท<p>";
     echo '<form action="history_cust.php" method="POST" enctype="multipart/form-data">';
     echo '<div class="form-group">
             <label for="image">แนบรูปภาพชำระเงิน :</label>
             <input type="file" id="image" name="image">
             </div>';  // แนบรูปภาพสลิป
-            echo "</form>";
-    echo '<form action="history_cust.php" method="POST">';
-    echo "<button type='submit' class='btn btn-info px-4'style='margin-top:20px; name='confirm' value='1'>ส่ง</button>"; //ส่งใบสลิป
+    echo "<button type='submit' class='btn btn-info px-4' style='margin-top:20px;' name='confirm' value='1'>ส่ง</button>"; //ส่งใบสลิป
     echo "</form>";
     echo '<form action="history_cust.php" method="POST">';
-    echo "<button type='submit' class='btn btn-info px-4'style='margin-top:20px; name='later' value='1'>ชำระภายหลัง</button>"; //ส่งภายหลัง
+    echo "<button type='submit' class='btn btn-info px-4' style='margin-top:20px;' name='later' value='1'>ชำระภายหลัง</button>"; //ส่งภายหลัง
+    echo "</form>";
+    echo '<form action="home.php" method="POST">';
+    echo "<button type='submit' class='btn btn-info px-4' style='margin-top:20px;' name='later' value='1'>ยกเลิก</button>"; //ส่งภายหลัง
     echo "</form>";
 
 
