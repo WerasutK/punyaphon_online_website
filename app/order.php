@@ -38,11 +38,19 @@
         die("Connection Failed: " . $conn->connect_error);
     }
 
-    echo "<a href='logout.php' class='btn btn-info' role='button'>Log out</a>";
+    echo "<a href='logout.php' class='btn btn-outline-primary' role='button'>Log out</a>";
+    
     echo "<h1>Home page!</h1>";
     echo "<h3>สวัสดีคุณ" . $_SESSION['name'] . "</h3>";
     echo "<h1>User : " . $_SESSION['username'] .  "</h3>";
-    echo "<p>คุณได้ทำการสั่งซื้อสินค้า ID : " . $_POST['add_product'] . " จำนวน " . $_POST['amount'] . " ชิ้น<p>"; #ดึง ID และจำนวนมาแสดงผล
+    $id = $_POST['add_product'];
+    $amount = $_POST['amount'];
+    $sql = "SELECT * FROM product WHERE product_id = '$id'";
+    $result = $conn->query($sql);
+    $row = $result->fetch_assoc();
+    echo "<p>คุณได้ทำการสั่งซื้อสินค้า : " . $row['product_name'] . " จำนวน " . $amount . " ชิ้น<p>"; #ดึง ID
+    echo "<p>ราคารวม " . $row['unit_price']*$amount . " บาท<p>";
+    echo "<button type='submit' class='btn btn-info px-4'style='margin-top:20px;'name='confirm' value=''>ยืนยัน</button>";
     // Close Connection
     $conn->close();
 ?>
