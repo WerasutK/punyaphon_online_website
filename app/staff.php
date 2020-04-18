@@ -71,8 +71,8 @@
             echo '<form action="update_product_page.php" method="POST">';
             echo "<button type='submit' class='btn btn-primary px-4' name='updateProduct' value=".$row['product_id'].">Update</button>"; // If submitted, will send product_id to ...
             echo '</form>';
-            echo '<form action="#" method="POST">';
-            echo "<button type='submit' class='btn btn-primary px-4' name='#' value=".$row['product_id'].">Delete</button>"; // If submitted, will send product_id to ...
+            echo '<form action="delete_product.php" method="POST">';
+            echo "<button type='submit' class='btn btn-primary px-4' name='deleteProduct' value=".$row['product_id'].">Delete</button>"; // If submitted, will send product_id to ...
             echo '</form>';
             echo "</div>";
             echo "</div>";
@@ -99,6 +99,15 @@
             $_SESSION['username'] = $username;
             header("Location: update_product_page.php");
         }
+
+        // If Delete Product button was pressed
+        if (isset($_POST['deleteProduct'])) {
+            // Session staff username
+            $username = $_SESSION['username'];
+            $_SESSION['username'] = $username;
+            header("Location: delete_product.php");
+        }
+
     ?>
 
 </body>
