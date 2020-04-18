@@ -48,7 +48,7 @@
     $sql = "SELECT * FROM product WHERE product_id = '$id'";
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
-    echo "<p>คุณได้ทำการสั่งซื้อสินค้า : " . $row['product_name'] . " จำนวน " . $amount . " ชิ้น<p>"; #ดึง ID
+    echo "<p>คุณได้ทำการสั่งซื้อสินค้า : " . $row['product_name'] . " จำนวน " . $amount . " " . $row['unit'] . "<p>"; #ดึง ID
     echo "<p>ราคารวม " . $row['unit_price']*$amount . " บาท<p>";
     echo '<form action="history_cust.php" method="POST" enctype="multipart/form-data">';
     echo '<div class="form-group">
