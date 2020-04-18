@@ -1,0 +1,29 @@
+body{
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+h1, h3{
+    text-align: center;
+    font-family: 'Prompt', sans-serif;
+}
+
+.input-group-prepend span{
+    width: 43px;
+    background-color: lightpink;
+    color: black;
+    border:0 !important;
+}
+
+.card{
+    background-image: url('../images/background2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: -180px;
+}
+
+footer{
+    margin-top: 100px; 
+}
+

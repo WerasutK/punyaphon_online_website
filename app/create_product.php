@@ -13,6 +13,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="css/style_create.css">
+    
+    <link href="https://fonts.googleapis.com/css?family=Prompt&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.0/css/all.css">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -28,8 +34,7 @@
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
+    
     <title>Create New Product</title>
 </head>
 <body>
@@ -38,41 +43,65 @@
         <h3>สวัสดีคุณ <?php echo $_SESSION['username']; ?></h3>
         <hr>
         <form action="create_product.php" method="POST" enctype="multipart/form-data">
-            <div class="form-group">
-                <label for="product_name">Product Name :</label>
-                <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Milk" minlength='2' placeholder="John"
+        <div class="card bg-light mb-4">
+        <article class="card-body mx-auto" style="margin-top: 10px;width: 500px;">
+            <label for="product_name">Product Name :</label><br>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-boxes"></i> </span>
+                </div>
+                <input type="text" class="form-control" id="product_name" name="product_name" placeholder="Product name" minlength='2'
                     pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
                     title="Must be Thai / Eng language and contain at least 2 characters" required>
-            </div>
-            <div class="form-group">
-                <label for="unit_price">Price per unit :</label>
+            </div> <!-- form-group// -->
+
+            <label for="unit_price">Price per unit :</label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fa fa-percent"></i> </span>
+                </div>
                 <input type="number" class="form-control" id="unit_price" name="unit_price" placeholder="100.25" required>
             </div>
-            <div class="form-group">
-                <label for="amount">Amount :</label>
+
+            <label for="amount">Amount :</label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-sort-amount-up"></i> </span>
+                </div>
                 <input type="number" class="form-control" id="amount" name="amount" placeholder="25.00">
             </div>
-            <div class="form-group">
-                <label for="unit">Unit (หน่วย) :</label>
+
+            <label for="unit">Unit (หน่วย) :</label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-balance-scale-right"></i> </span>
+                </div>    
                 <input type="text" class="form-control" id="unit" name="unit" placeholder="kg." minlength='2'
                     pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
                     title="Must be Thai / Eng language and contain at least 2 characters" required>
             </div>
-            <div class="form-group">
-                <label for="description">Description :</label>
+            
+            <label for="description">Description :</label>
+            <div class="form-group input-group">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"> <i class="fas fa-pen"></i> </span>
+                </div>
                 <input type="text" class="form-control" id="description" name="description" placeholder="This is a ...">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="color: white;">
                 <label for="image">Image :</label>
                 <input type="file" id="image" name="image">
             </div>
-            <div class="form-group">
-				<center> 
-                    <input type="submit" name="create_product" value="Create Product" style="margin-top: 20px"class="btn btn-outline-dark">
-                </center>
+            <div class="form-group" style="text-align: center;"> 
+                <input type="submit" name="create_product" value="Create Product" style="margin-top: 20px;"class="btn btn-danger">
 			</div>
+        </article>
+        </div> <!-- card.// -->
         </form>
-        <a href="staff.php" class="btn btn-info" role="button">Back</a>
+        <div class="button-2" style="text-align:center;">
+            <a href="staff.php" class="btn btn-outline-dark" role="button">Back</a>
+        <div>
+        <footer></footer>
     </div>
 
     <?php
