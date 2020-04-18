@@ -65,7 +65,7 @@
         echo "<p class='card-text'>จำนวนที่เหลือ : " . $row['amount'] ." ". $row['unit'] .  "</p>";  // จำนวนที่เหลือ
         echo "</div>";
         echo "<div class='card-body'>";
-        echo '<form action="order.php" method="POST">';
+        echo '<form action="order_confirm.php" method="POST">';
         echo '<input type="text" name="amount" class="form-control" value="1"/>';
         echo "<button type='submit' class='btn btn-info px-4'style='margin-top:20px;'name='add_product' value=".$row['product_id'].">สั่งซื้อ</button>"; //กดปุ่ม Submit จะส่งค่า ID และ จำนวนที่สั่งไปยังหน้า order
         echo '</form>';
