@@ -14,6 +14,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="css/style_staff.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Prompt&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -34,15 +38,18 @@
 </head>
 <body>
 
-    <div class="container">
+    <div class="container mt-4">
         <h1>Administrator Page</h1>
         <h3>สวัสดีคุณ <?php echo $_SESSION['username']; ?></h3>
-        <form action="create_product.php" method="POST">
-            <input type="submit" name="createProduct" value="Create New Product" style="margin-top: 20px"class="btn btn-outline-dark">
-        </form>
-        <a href="logout.php" class="btn btn-info" role="button">Log out</a>
+        <div class="btn-group" style="margin-top:10px;">
+            <form action="create_product.php" method="POST">
+                <input type="submit" name="createProduct" value="Create New Product" class="btn btn-primary">
+            </form>
+            <p class="line"></p>
+            <a href="logout.php" class="btn btn-outline-danger" style="margin-left: 8px;height: 38px;" role="button">Log out</a>
+        </div>
     </div>
-
+    <hr>
     <?php
         // Create Connection
         $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
@@ -61,7 +68,7 @@
         while($row = $result->fetch_assoc()) {
             echo "<div class='col-md-4'>";
             echo "<div class='card' style='width: 18rem;'>";
-            echo "<h5 class='card-title'>" . $row['product_name'] . "</h5>";
+            echo "<h5 class='card-title'>" . $row['product_name'] ."</h5>";
             echo "<img class='card-img-top' src='" . $row['image'] . "'>";
             echo "<div class='card-body'>";
             echo "<h5 class='card-text'>ราคา : " . $row['unit_price'] . " บาท</h5>";
@@ -69,10 +76,10 @@
             echo "</div>";
             echo "<div class='card-body'>";
             echo '<form action="update_product_page.php" method="POST">';
-            echo "<button type='submit' class='btn btn-primary px-4' name='updateProduct' value=".$row['product_id'].">Update</button>"; // If submitted, will send product_id to ...
+            echo "<center> <button type='submit' class='btn btn-dark px-4' style='width:130px;' name='updateProduct' value=".$row['product_id'].">Update</button> </center>"; // If submitted, will send product_id to ...
             echo '</form>';
             echo '<form action="delete_product.php" method="POST">';
-            echo "<button type='submit' class='btn btn-primary px-4' name='deleteProduct' value=".$row['product_id'].">Delete</button>"; // If submitted, will send product_id to ...
+            echo "<center> <button type='submit' class='btn btn-outline-dark px-4' style='width:130px;' name='deleteProduct' value=".$row['product_id'].">Delete</button> </center>"; // If submitted, will send product_id to ...
             echo '</form>';
             echo "</div>";
             echo "</div>";
@@ -80,6 +87,7 @@
         }
         echo "</div>";
         echo "</div>";
+        echo "<footer></footer>";
 
         // Close Connection
         $conn->close();
