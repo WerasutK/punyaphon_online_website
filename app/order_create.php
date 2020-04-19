@@ -74,9 +74,10 @@
             }
         }
     }else{
-        echo "<script language='javascript'>";
-        echo "alert('กรอกเวลาไม่ถูกต้อง')";
-        echo "</script>";
+        echo "<script>
+        alert('ระบุวันรับสินค้าไม่ถูกต้อง');
+        window.location.href='home.php';
+        </script>"
     }
     
     
