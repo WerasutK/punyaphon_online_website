@@ -43,35 +43,41 @@
     date_default_timezone_set("Asia/Bangkok");
     $dt = date("Y-m-d H:i:s");
 
+    if($_POST['recieve'] < date("Y-m-d", strtotime('+7 day')) && $_POST['recieve'] > date("Y-m-d", strtotime('today'))){ //ตรวจสอบวันที่ระบุ ต้องอยู่ภายใน 7 วันนับจากวันที่สั่ง
+        if (isset($_POST['confirm'])) {   //ตรวจสอบการกดปุ่ม confirm
+            $image = $_FILES['image']['name'];
+            if ($image != ""){   //เช็คว่ามีการอัพโหลดรูปภาพ
+                // Path to store the uploaded image
+                $target = "receipt/".basename($_FILES['image']['name']);
 
-    //ถ้ามีค่า confirm และ image  คือการส่งสลิปโอนเงินแล้ว
-    if (isset($_POST['confirm'])) {   //
-        $image = $_FILES['image']['name'];
-        if ($image != ""){   //กรณีแนบภาพปกติ
-        // Path to store the uploaded image
-        $target = "receipt/".basename($_FILES['image']['name']);
-
-        $status = "checking"; //status รอตรวจสอบการชำระเงิน
-        // Insert Data to Database : Payment Table
-        $sql = "INSERT INTO payment (`status`, transaction_image, transaction_time, total_price)
-                VALUES ('$status', '$image', '$dt', '$total_price')";
-            if (($conn->query($sql) === TRUE)) {
-                if ((move_uploaded_file($_FILES['image']['tmp_name'], $target))) {
-                    echo '<script language="javascript">';
-                    echo 'alert("success!")';
-                    echo '</script>';
-                }else{
-                    echo "<script language='javascript'>";
-                    echo "alert('There was a problem!')";
-                    echo "</script>";
-                }      
+                $status = "checking"; //status รอตรวจสอบการชำระเงิน
+                // Insert Data to Database : Payment Table
+                $sql = "INSERT INTO payment (`status`, transaction_image, transaction_time, total_price)
+                        VALUES ('$status', '$image', '$dt', '$total_price')";
+                if (($conn->query($sql) === TRUE)) {
+                    if ((move_uploaded_file($_FILES['image']['tmp_name'], $target))) {
+                        echo '<script language="javascript">';
+                        echo 'alert("success!")';
+                        echo '</script>';
+                    }else{
+                        echo "<script language='javascript'>";
+                        echo "alert('There was a problem!')";
+                        echo "</script>";
+                    }
+                }
+                
+            }else{      //กรณีไม่ได้แนบรูปภาพ
+                echo "<script>
+                alert('ไม่ได้แนบรูปภาพ');
+                window.location.href='home.php';
+                </script>";
             }
-        }else{      //กรณีไม่ได้แนบรูปภาพ
-            echo "<script>
-            alert('ไม่ได้แนบรูปภาพ');
-            window.location.href='home.php';
-            </script>";
         }
+    }else{
+        echo "<script language='javascript'>";
+        echo "alert('กรอกเวลาไม่ถูกต้อง')";
+        echo "</script>";
     }
+    
     
 ?>
