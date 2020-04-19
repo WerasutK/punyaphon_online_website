@@ -39,8 +39,8 @@
 <body>
 
     <div class="container mt-4">
-        <h1>Administrator Page</h1>
-        <h3>สวัสดีคุณ <?php echo $_SESSION['username']; ?></h3>
+        <h1>หน้าหลักผู้ดูแล</h1>
+        <h4>สวัสดีคุณ <?php echo $_SESSION['username']; ?></h4>
         <div class="btn-group" style="margin-top:10px;">
             <form action="create_product.php" method="POST">
                 <input type="submit" name="createProduct" value="Create New Product" class="btn btn-primary">

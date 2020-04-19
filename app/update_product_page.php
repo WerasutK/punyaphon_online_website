@@ -14,6 +14,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="stylesheet" href="css/style_update.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Prompt&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
@@ -34,12 +38,10 @@
 </head>
 <body>
 
-    <div class="container">
-        <h1>Administrator Page</h1>
-        <h3>สวัสดีคุณ <?php echo $_SESSION['username']; ?></h3>
-        <h3>สวัสดีคุณ <?php echo $_POST['updateProduct']; ?></h3>
-        <a href="logout.php" class="btn btn-info" role="button">Log out</a>
-        <a href="staff.php" class='btn btn-info' role="button">Back</a>
+    <div class="container mt-4">
+        <h1>Update Product</h1>
+        <h4>สวัสดีคุณ <?php echo $_SESSION['username']; ?></h4>
+
 
         <?php
             $username = $_SESSION['username'];
@@ -59,10 +61,12 @@
             $row = $result->fetch_assoc();
         
             // Show data you selected to update
-            echo '<form action="update_product.php" method="POST" enctype="multipart/form-data">';
+            echo '<form action="update_product.php" method="POST" enctype="multipart/form-data" style="margin-top: 20px; height:609px;">';
+            echo '<div class="card mb-4">';
+            echo '<article class="card-body mx-auto" style="margin-top: 10px;width: 480px;">';
             echo '<div class="form-group">
                     <label for="product_name">Product Name :</label>
-                    <input type="text" class="form-control" id="product_name" name="product_name" value="' . $row['product_name'] . '" minlength="2" placeholder="John"
+                    <input type="text" class="form-control" id="product_name" name="product_name" value="' . $row['product_name'] . '" minlength="2" placeholder="Product name"
                         pattern="[A-Za-z]{2,}|[ก-๙]{2,}"
                         title="Must be Thai / Eng language and contain at least 2 characters" required>
                 </div>';
@@ -90,10 +94,17 @@
                 </div>';
             echo '<div class="form-group">
 				    <center> 
-                        <button type="submit" name="update_product" value="' . $row['product_id'] . '" style="margin-top: 20px"class="btn btn-outline-dark">Update</button>
+                        <button type="submit" name="update_product" value="' . $row['product_id'] . '" style="margin-top: 20px"class="btn btn-dark">Update</button>
                     </center>
                 </div>';
+            echo '</article>';
+            echo '</div>';
             echo '</form>';
+            echo '<div class="btn-group mt-4" style="margin-left: 950px;">
+                    <a href="staff.php" class="btn btn-outline-dark" role="button">Back</a>
+                    <a href="logout.php" class="btn btn-outline-danger" role="button">Log out</a>
+                </div>';
+            echo '<footer></footer>';
 
             // If pressed update button
             if (isset($_POST['update_product'])) {
@@ -105,7 +116,6 @@
             // Close Connection
             $conn->close();
     ?>
-
     </div>
 
 </body>
