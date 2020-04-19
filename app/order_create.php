@@ -40,11 +40,16 @@
     }
 
     $total_price = $_SESSION['Total_Price']; //total price
+    $username = $_SESSION["username"];
+    $recieve = $_POST["recieve"]; //recieve date
+    $id = $_SESSION["id"];
+
     date_default_timezone_set("Asia/Bangkok");
     $dt = date("Y-m-d H:i:s");
 
-    if($_POST['recieve'] < date("Y-m-d", strtotime('+7 day')) && $_POST['recieve'] > date("Y-m-d", strtotime('today'))){ //ตรวจสอบวันที่ระบุ ต้องอยู่ภายใน 7 วันนับจากวันที่สั่ง
-        if (isset($_POST['confirm'])) {   //ตรวจสอบการกดปุ่ม confirm
+    
+    if (isset($_POST['confirm']) && ($recieve)) {   //ตรวจสอบการกดปุ่ม confirm
+        if($recieve < date("Y-m-d", strtotime('+7 day')) && $recieve > date("Y-m-d", strtotime('today'))){ //ตรวจสอบวันที่ระบุ ต้องอยู่ภายใน 7 วันนับจากวันที่สั่ง
             $image = $_FILES['image']['name'];
             if ($image != ""){   //เช็คว่ามีการอัพโหลดรูปภาพ
                 // Path to store the uploaded image
@@ -54,31 +59,45 @@
                 // Insert Data to Database : Payment Table
                 $sql = "INSERT INTO payment (`status`, transaction_image, transaction_time, total_price)
                         VALUES ('$status', '$image', '$dt', '$total_price')";
-                if (($conn->query($sql) === TRUE)) {
-                    if ((move_uploaded_file($_FILES['image']['tmp_name'], $target))) {
-                        echo '<script language="javascript">';
-                        echo 'alert("success!")';
-                        echo '</script>';
-                    }else{
-                        echo "<script language='javascript'>";
-                        echo "alert('There was a problem!')";
-                        echo "</script>";
-                    }
-                }
+                $result = (($conn->query($sql) === TRUE) && (move_uploaded_file($_FILES['image']['tmp_name'], $target)));
+                    
                 
+                $sql1 = "INSERT INTO order (customer_user_username, recieve_date, product_product_id,)
+                        VALUES ('$username', '$recieve', '$id')";
+                $result1 = ($conn->query($sql1) === TRUE);
+                    
+                if($result && $result1){
+                    echo "<script>
+                    alert('Successful!');
+                    window.location='home.php';
+                    </script>";
+                }else{
+                    echo "<script>
+                    alert('Error!');
+                    window.location='home.php';
+                    </script>";
+                }
+
+
             }else{      //กรณีไม่ได้แนบรูปภาพ
                 echo "<script>
                 alert('ไม่ได้แนบรูปภาพ');
-                window.location.href='home.php';
+                window.location='home.php';
                 </script>";
             }
+        }else{
+        echo "<script>
+        alert('ระบุวันรับสินค้าไม่ถูกต้อง');
+        window.location='home.php';
+        </script>";
         }
     }else{
         echo "<script>
-        alert('ระบุวันรับสินค้าไม่ถูกต้อง');
-        window.location.href='home.php';
-        </script>"
+        alert('กรุณาระบุวันรับสินค้า');
+        window.location='home.php';
+        </script>";
     }
     
-    
+    // Close Connection
+    $conn->close();
 ?>
