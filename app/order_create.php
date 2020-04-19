@@ -61,9 +61,8 @@
                         VALUES ('$status', '$image', '$dt', '$total_price')";
                 $result = (($conn->query($sql) === TRUE) && (move_uploaded_file($_FILES['image']['tmp_name'], $target)));
                     
-                
-                $sql1 = "INSERT INTO order (customer_user_username, recieve_date, product_product_id,)
-                        VALUES ('$username', '$recieve', '$id')";
+                $sql1 = "INSERT INTO `order` (customer_user_username, recieve_date, product_product_id)
+                         VALUES ('$username', '$recieve', $id)";
                 $result1 = ($conn->query($sql1) === TRUE);
                     
                 if($result && $result1){
