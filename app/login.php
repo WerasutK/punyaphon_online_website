@@ -28,11 +28,12 @@
 </head>
 
 <body>
+<center><img src="images/Logo.png" style="width:700px;height:250px;"></center>
 <div class="container">
 	<div class="d-flex justify-content-center h-100">
 		<div class="card">
 			<div class="card-header">
-				<h3 style="color: black;">Login</h3>
+				<h3 style="color: black;">Log in</h3>
 			</div>
 			<div class="card-body">
 				<form action="login.php" method="POST">
@@ -63,6 +64,7 @@
 		</div>
 	</div>
 </div>
+<footer></footer>
 
 
     <?php
