@@ -36,7 +36,6 @@
         h4{
             margin-top: 4px;
         }
-
         </style>
 </head>
 <body>
@@ -72,10 +71,10 @@
             <label for='recieve'>ระบุวันรับสินค้า:</label>
             <input type='date' id='recieve' name='recieve'>
             </div>";  //ระบุวันที่รับสินค้า
-    echo "<button type='submit' class='btn btn-info px-4' style='margin-top:10px;' name='confirm' value='1'>ส่ง</button>"; //ส่งใบสลิป
-    echo '<form action="home.php" method="POST">';
+    echo "<button type='submit' class='btn btn-info px-4'' name='confirm' value='1'>ส่ง</button>"; //ส่งใบสลิป
     echo '</form>';
-    echo "<button type='submit' class='btn btn-secondary px-4' style='margin-top:5px;' name='later' value='1'>ยกเลิก</button>"; //ยกเลิกรายการ
+    echo '<form action="home.php" method="POST">';
+    echo "<button type='submit' class='btn btn-secondary px-4' name='later' value='1'>ยกเลิก</button>"; //ยกเลิกรายการ
     echo "</form>";
     // Close Connection
     $conn->close();
