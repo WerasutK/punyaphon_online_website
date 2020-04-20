@@ -48,9 +48,9 @@
         die("Connection Failed: " . $conn->connect_error);
     }
     
-    echo "<h1>Order page!</h1>";
-    echo "<h3>สวัสดีคุณ" . $_SESSION['name'] . "</h3>";
-    echo "<div class='btn-group'><h4>User: " . $_SESSION['username'] . "</h4>"."<a href='logout.php' class='btn btn-outline-danger' style='height: 38px;margin-left: 6px; role='button'>Log out</a></div>";
+    echo "<div class='btn-group'><h1>Order</h1>"."<a href='logout.php' class='btn btn-outline-danger' style='height: 38px;margin-left: 6px;margin-top:8px;' role='button'>Log out</a></div>";
+    echo "<h3>สวัสดีคุณ " . $_SESSION['name'] . "</h3>";
+    echo "<h4>User : " . $_SESSION['username'] . "</h4>";
     echo "<hr>";
     $_SESSION['id'] = $_POST['add_product'];
     $_SESSION['amout'] = $_POST['amount'];
