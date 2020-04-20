@@ -41,7 +41,7 @@
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     }
-    $sql = "SELECT * FROM payment";
+    $sql = "SELECT * FROM payment WHERE `status`='checking'";
     $result = $conn->query($sql);
     echo '<table style="width:100%">';
     echo '<tr>';
