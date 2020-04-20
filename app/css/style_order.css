@@ -5,6 +5,11 @@ body{
     background-position-y: -280px;
 }
 
+h1 {
+    padding-right: 5px;
+    border-right: solid;
+}
+
 hr{
     width: 900px;
 }
