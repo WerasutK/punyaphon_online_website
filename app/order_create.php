@@ -60,22 +60,15 @@
                 $sql = "INSERT INTO payment (`status`, transaction_image, transaction_time, total_price)
                         VALUES ('$status', '$image', '$dt', '$total_price')";
                 $result = (($conn->query($sql) === TRUE) && (move_uploaded_file($_FILES['image']['tmp_name'], $target)));
-                    
-                $sql1 = "INSERT INTO `order` (customer_user_username, recieve_date, product_product_id)
-                         VALUES ('$username', '$recieve', $id)";
-                $result1 = ($conn->query($sql1) === TRUE);
-                    
-                if($result && $result1){
-                    echo "<script>
-                    alert('Successful!');
-                    window.location='home.php';
-                    </script>";
-                }else{
-                    echo "<script>
-                    alert('Error!');
-                    window.location='home.php';
-                    </script>";
-                }
+
+                $sql1 = "SELECT payment_id FROM payment ORDER BY payment_id DESC limit 1";
+                $result1 = $conn->query($sql1);
+                $row = mysqli_fetch_array($result1);
+                $payment_id = $row['payment_id'];
+    
+                $sql2 = "INSERT INTO `order` (customer_user_username, recieve_date, payment_payment_id, product_product_id)
+                         VALUES ('$username', '$recieve',$payment_id, $id)";
+                $result2 = ($conn->query($sql2) === TRUE);
 
 
             }else{      //กรณีไม่ได้แนบรูปภาพ
