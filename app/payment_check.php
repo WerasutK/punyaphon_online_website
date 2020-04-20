@@ -67,7 +67,8 @@
         </td>
         </tr>
     <?php }
-   
+
+    date_default_timezone_set("Asia/Bangkok");
     $dt = date("Y-m-d H:i:s");
 
     if (isset($_POST['valid'])){
