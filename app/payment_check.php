@@ -30,9 +30,6 @@
         </style>
 </head>
 <body>
-<div class="button-2" style="text-align:center;">
-    <a href="staff.php" class="btn btn-outline-dark" role="button">Back</a>
-<div>
 <?php
     // Create Connection
     $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
@@ -41,7 +38,7 @@
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     }
-    $sql = "SELECT * FROM payment WHERE `status`='checking'";
+    $sql = "SELECT * FROM payment WHERE `status` ='checking'";
     $result = $conn->query($sql);
     echo '<table style="width:100%">';
     echo '<tr>';
@@ -71,46 +68,78 @@
         </tr>
     <?php }
    
-    
+    $dt = date("Y-m-d H:i:s");
 
     if (isset($_POST['valid'])){
         $payment_id = $_POST['valid'];
         $sql = "UPDATE payment SET `status`='valid'
                 WHERE payment_id=$payment_id";
         $result = ($conn->query($sql) === TRUE);
-        
-        $sql1 = "INSERT INTO `history` (payment_payment_id)
-                VALUES ($payment_id)";
-        $result1 = ($conn->query($sql1) === TRUE);               
 
-        if($result && $result1){
+        $status = "preparing";
+
+        $sql1 = "INSERT INTO `history` (`datetime`, `status`)
+                VALUES ('$dt','$status')";
+        $result1 = ($conn->query($sql1) === TRUE);
+
+        $sql2 = "SELECT history_id FROM history ORDER BY history_id DESC LIMIT 1";
+        $result2 = $conn->query($sql2);
+        $row = mysqli_fetch_array($result2);
+        $history_id = $row['history_id'];
+
+        $sql3 = "UPDATE `order` SET `history_history_id`= $history_id 
+                WHERE payment_payment_id=$payment_id";
+        $result3 = ($conn->query($sql3) === TRUE);
+
+        if($result3){
             echo "<script>
-                alert('Successful!');
-                window.location='payment_check.php';
-                </script>";
-            } else {
-                echo "<script>
-                alert('Error!');
-                window.location='payment_check.php';
-                </script>";         
-            }
+            alert('Successful!');
+            window.location='payment_check.php';
+            </script>";
+        } else {
+            echo "<script>
+            alert('Error!');
+            window.location='payment_check.php';
+            </script>";         
+        }
+
 
     }else if (isset($_POST['invalid'])){
         $payment_id = $_POST['invalid'];
         $sql = "UPDATE payment SET `status`='invalid'
                 WHERE payment_id=$payment_id";
-            if ($conn->query($sql)) {
-                echo "<script>
-                    alert('Successful!');
-                    window.location='payment_check.php';
-                    </script>";
-            } else {
-                echo "<script>
-                    alert('Error!');
-                    window.location='payment_check.php';
-                    </script>";
-            }
+        $result = ($conn->query($sql) === TRUE);
+        
+        $status = "problem";
+
+        $sql1 = "INSERT INTO `history` (`datetime`, `status`)
+                VALUES ('$dt', '$status')";
+        $result1 = ($conn->query($sql1) === TRUE);
+        
+        
+        $sql2 = "SELECT history_id FROM history ORDER BY history_id DESC LIMIT 1";
+        $result2 = $conn->query($sql2);
+        $row = mysqli_fetch_array($result2);
+        $history_id = $row['history_id'];
+
+        $sql3 = "UPDATE `order` SET history_history_id=$history_id 
+                WHERE payment_payment_id=$payment_id";
+        $result3 = ($conn->query($sql3) === TRUE);
+
+        if($result3){
+            echo "<script>
+            alert('Successful!');
+            window.location='payment_check.php';
+            </script>";
+        } else {
+            echo "<script>
+            alert('Error!');
+            window.location='payment_check.php';
+            </script>";         
+        }
     }
+
+
     // Close Connection
     $conn->close();
     ?>
