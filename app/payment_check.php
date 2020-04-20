@@ -30,6 +30,9 @@
         </style>
 </head>
 <body>
+<div class="button-2" style="text-align:center;">
+    <a href="staff.php" class="btn btn-outline-dark" role="button">Back</a>
+<div>
 <?php
     // Create Connection
     $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
