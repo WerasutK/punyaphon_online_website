@@ -41,17 +41,46 @@
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     }
-    $sql = "SELECT * FROM `history` LEFT OUTER JOIN `payment` ON `history`.`history_id` = `payment`.`payment_id`";
+    $sql = "SELECT * 
+    FROM `history` 
+    INNER JOIN `order` 
+    ON `history`.`history_id` = `order`.`history_history_id`
+    INNER JOIN payment
+    ON `order`.payment_payment_id = payment.payment_id
+    INNER JOIN product
+    ON `order`.product_product_id = product.product_id
+    INNER JOIN `user`
+    ON order.customer_user_username = `user`.`username`";
+    
     $result = $conn->query($sql);
+
+    date_default_timezone_set("Asia/Bangkok");
+    $dt = date("Y-m-d");
+
     echo '<table style="width:100%">';
     echo '<tr>';
     echo '<th>History ID</th>';
+    echo '<th>Name</th>';
+    echo '<th>Quantity</th>';
     echo '<th>Total Price</th>';
+    echo '<th>Recieve Date</th>';
+    echo '<th>Remaining</th>';
     echo '</tr>';
-    while($row = $result->fetch_assoc()) { ?>
+
+    while($row = $result->fetch_assoc()) { 
+        $now = strtotime($dt);
+        $mydate = strtotime($row['recieve_date']);
+        $remain = ceil(abs($mydate - $now) / 86400);?>
         <tr>
         <td><?php echo $row['history_id']; ?></td>
+        <td><?php echo $row['firstname'] . " ". $row['lastname']; ?></td>
+        <td><?php echo $row['quantity']; ?></td>
         <td><?php echo $row['total_price']; ?></td>
+        <td><?php echo $row['recieve_date']; ?></td>
+        <?php if (!($remain < 0)){
+            echo '<td>' .$remain; 
+        }else{
+            echo '<td>-'; }?></td>
         </tr>
     <?php } 
         // Close Connection
