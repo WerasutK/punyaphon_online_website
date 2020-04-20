@@ -59,7 +59,11 @@
 
         // Redirect to staff.php
         $_SESSION['username'] = $username;
-        header('Location: staff.php');
+        echo "<script language='javascript'>;
+              alert('You delete complete!');
+              window.location='staff.php';
+              </script>";
+        // header('Location: staff.php');
 
         // Close Connection
         $conn->close();

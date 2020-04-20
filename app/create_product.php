@@ -136,13 +136,15 @@
 
             if ($conn->query($sql) === TRUE) {
                 if ((move_uploaded_file($_FILES['image']['tmp_name'], $target)) || $image == "") {
-                    echo "<script language='javascript'>";
-                    echo "alert('Create Product Successfully!')";
-                    echo "</script>";
+                    echo "<script language='javascript'>;
+                          alert('Create Product Successfully!');
+                          window.location='staff.php';
+                          </script>";
                 } else {
-                    echo "<script language='javascript'>";
-                    echo "alert('There was a problem create product!')";
-                    echo "</script>";
+                    echo "<script language='javascript'>;
+                          alert('There was a problem create product!');
+                          window.location='staff.php';
+                          </script>";
                 }
             }
 

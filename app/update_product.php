@@ -61,25 +61,29 @@
             $sql = "UPDATE product SET product_name='$product_name', unit_price='$unit_price', amount='$amount', unit='$unit', `description`='$description'
                     WHERE product_id='$product_id'";
             if ($conn->query($sql)) {
-                echo "<script language='javascript'>";
-                echo "alert('Update Completed!')";
-                echo "</script>";
+                echo "<script language='javascript'>;
+                      alert('Update Completed!');
+                      window.location='staff.php';
+                      </script>";
             } else {
-                echo "<script language='javascript'";
-                echo "alert('Update Failed!')";
-                echo "</script>";
+                echo "<script language='javascript';
+                      alert('Update Failed!');
+                      window.location='staff.php';
+                      </script>";
             }
         } else {
             $sql = "UPDATE product SET product_name='$product_name', unit_price='$unit_price', amount='$amount', unit='$unit', `description`='$description', `image`='$image'
                     WHERE product_id='$product_id'";
             if ($conn->query($sql)) {
-                echo "<script language='javascript'";
-                echo "alert('Update Completed!')";
-                echo "</script>";
+                echo "<script language='javascript'>;
+                      alert('Update Completed!');
+                      window.location='staff.php';
+                      </script>";
             } else {
-                echo "<script language='javascript'";
-                echo "alert('Update Failed!')";
-                echo "</script>";
+                echo "<script language='javascript';
+                      alert('Update Failed!');
+                      window.location='staff.php';
+                      </script>";
             }
         }
 
@@ -90,7 +94,7 @@
 
         // Redirect to staff.php
         $_SESSION['username'] = $username;
-        header('Location: staff.php');
+        // header('Location: staff.php');
             
         // Close Connection
         $conn->close();
