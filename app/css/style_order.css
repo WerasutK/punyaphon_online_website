@@ -1,0 +1,22 @@
+body{
+    background-image: url('../images/background2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: -280px;
+}
+
+hr{
+    width: 900px;
+}
+p{
+    font-size: 20px;
+    font-weight: bold;
+}
+
+form{
+    margin-top: 20px;
+}
+
+.btn-info, .btn-secondary{
+    width: 150px;
+}

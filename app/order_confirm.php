@@ -12,7 +12,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Order page</title>
+    <link rel="stylesheet" href="css/style_order.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -21,11 +22,21 @@
     <style>
         body {
             font-family: 'Prompt', sans-serif;
+            margin-top: 30px;
             text-align: center;
         }
         img {
             width: 100px;
         }
+
+        h3{
+            margin-top: 30px;
+        }
+
+        h4{
+            margin-top: 4px;
+        }
+
         </style>
 </head>
 <body>
@@ -37,12 +48,11 @@
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     }
-
-    echo "<a href='logout.php' class='btn btn-outline-primary' role='button'>Log out</a>";
     
-    echo "<h1>Home page!</h1>";
+    echo "<h1>Order page!</h1>";
     echo "<h3>สวัสดีคุณ" . $_SESSION['name'] . "</h3>";
-    echo "<h1>User : " . $_SESSION['username'] .  "</h3>";
+    echo "<div class='btn-group'><h4>User: " . $_SESSION['username'] . "</h4>"."<a href='logout.php' class='btn btn-outline-danger' style='height: 38px;margin-left: 6px; role='button'>Log out</a></div>";
+    echo "<hr>";
     $_SESSION['id'] = $_POST['add_product'];
     $_SESSION['amout'] = $_POST['amount'];
     $sql = "SELECT * FROM product WHERE product_id = ". $_SESSION['id'];
@@ -50,10 +60,11 @@
     $row = $result->fetch_assoc();
     $_SESSION['Total_Price'] = $row['unit_price']*$_SESSION['amout'];
     $_SESSION['product_name'] = $row['product_name'];
+    
+    echo '<form action="order_create.php" method="POST" enctype="multipart/form-data">';
     echo "<p>คุณได้ทำการสั่งซื้อสินค้า : " . $_SESSION['product_name'] . " จำนวน " . $_SESSION['amout'] . " " . $row['unit'] . "<p>"; //ชื่อ และ จำนวนสินค้าที่ลูกค้าสั่ง
     echo "<p>ราคารวม " . $_SESSION['Total_Price'] . " บาท<p>";
-    echo '<form action="order_create.php" method="POST" enctype="multipart/form-data">';
-    echo '<div class="form-group">
+    echo '<div class="form-group-prepend" style="margin-left: 145px;margin-top: 40px;">
             <label for="image">แนบรูปภาพชำระเงิน :</label>
             <input type="file" id="image" name="image">
             </div>';  // แนบรูปภาพสลิป
@@ -61,13 +72,11 @@
             <label for='recieve'>ระบุวันรับสินค้า:</label>
             <input type='date' id='recieve' name='recieve'>
             </div>";  //ระบุวันที่รับสินค้า
-    echo "<button type='submit' class='btn btn-info px-4' style='margin-top:20px;' name='confirm' value='1'>ส่ง</button>"; //ส่งใบสลิป
-    echo "</form>";
+    echo "<button type='submit' class='btn btn-info px-4' style='margin-top:10px;' name='confirm' value='1'>ส่ง</button>"; //ส่งใบสลิป
     echo '<form action="home.php" method="POST">';
-    echo "<button type='submit' class='btn btn-info px-4' style='margin-top:20px;' name='later' value='1'>ยกเลิก</button>"; //ยกเลิกรายการ
+    echo '</form>';
+    echo "<button type='submit' class='btn btn-secondary px-4' style='margin-top:5px;' name='later' value='1'>ยกเลิก</button>"; //ยกเลิกรายการ
     echo "</form>";
-
-
     // Close Connection
     $conn->close();
 ?>
