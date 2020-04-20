@@ -45,6 +45,12 @@
             <form action="create_product.php" method="POST">
                 <input type="submit" name="createProduct" value="Create New Product" class="btn btn-primary">
             </form>
+            <form action="payment_check.php" method="POST">
+                <input type="submit" name="paymentCheck" value="Check Reciept Status" class="btn btn-primary">
+            </form>
+            <form action="history_staff.php" method="POST">
+                <input type="submit" name="historyStaff" value="History of Order" class="btn btn-primary">
+            </form>
             <p class="line"></p>
             <a href="logout.php" class="btn btn-outline-danger" style="margin-left: 8px;height: 38px;" role="button">Log out</a>
         </div>
@@ -114,6 +120,22 @@
             $username = $_SESSION['username'];
             $_SESSION['username'] = $username;
             header("Location: delete_product.php");
+        }
+
+        // If Check Reciept button was pressed
+        if (isset($_POST['paymentCheck'])) {
+            // Session staff username
+            $username = $_SESSION['username'];
+            $_SESSION['username'] = $username;
+            header("Location: payment_check.php");
+        }
+
+        // If Order History button was pressed
+        if (isset($_POST['historyStaff'])) {
+            // Session staff username
+            $username = $_SESSION['username'];
+            $_SESSION['username'] = $username;
+            header("Location: history_staff.php");
         }
 
     ?>
