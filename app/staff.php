@@ -75,10 +75,13 @@
             echo "<div class='col-md-4'>";
             echo "<div class='card' style='width: 18rem;'>";
             echo "<h5 class='card-title'>" . $row['product_name'] ."</h5>";
-            echo "<img class='card-img-top' src='product/" . $row['image'] . "'>";
+            echo "<center>";
+            echo "<img style='width:50%; height:50%;' class='card-img-top' src='product/" . $row['image'] . "'>";
+            echo "</center>";
             echo "<div class='card-body'>";
             echo "<h5 class='card-text'>ราคา : " . $row['unit_price'] . " บาท</h5>";
             echo "<p class='card-text'>จำนวนที่เหลือ : " . $row['amount'] ." ". $row['unit'] .  "</p>";  // จำนวนที่เหลือ
+            echo "<p class='card-text'>คำอธิบาย : " . $row['description'];
             echo "</div>";
             echo "<div class='card-body'>";
             echo '<form action="update_product_page.php" method="POST">';
