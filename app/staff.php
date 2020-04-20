@@ -45,10 +45,10 @@
             <form action="create_product.php" method="POST">
                 <input type="submit" name="createProduct" value="Create New Product" class="btn btn-primary">
             </form>
-            <form action="payment_check.php" method="POST">
+            <form class="ml-1" action="payment_check.php" method="POST">
                 <input type="submit" name="paymentCheck" value="Check Reciept Status" class="btn btn-primary">
             </form>
-            <form action="history_staff.php" method="POST">
+            <form class="ml-1" action="history_staff.php" method="POST">
                 <input type="submit" name="historyStaff" value="History of Order" class="btn btn-primary">
             </form>
             <p class="line"></p>
