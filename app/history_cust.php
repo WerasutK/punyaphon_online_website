@@ -2,9 +2,9 @@
 
     session_start();
 
-    if (!isset($_SESSION['username'])) {
-        header('Location: login.php');
-    }
+    //if (!isset($_SESSION['username'])) {
+    //    header('Location: login.php');
+    //}
 
 ?>
 <!DOCTYPE html>
@@ -26,11 +26,16 @@
         img {
             width: 100px;
         }
+
         </style>
 </head>
 <body>
+<div class="button-2" style="text-align:center;">
+    <a href="staff.php" class="btn btn-outline-dark" role="button">Back</a>
+<div>
 <?php
-
+    $username = $_SESSION['username'];
+    echo "<h5>User : " . $username .  "</h5>";
     // Create Connection
     $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
 
@@ -38,53 +43,56 @@
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     }
-
-    $total_price = $_SESSION['Total_Price']; //total price
-
-    //ถ้ามีค่า confirm และ image  คือการส่งสลิปโอนเงินแล้ว
-    if (isset($_POST['confirm']) && (isset($_FILES['image']['name']) != "")) {
-        $image = $_FILES['image']['name'];
-        // Path to store the uploaded image
-        $target = "receipt/".basename($_FILES['image']['name']);
-
-        $status = "checking"; //status รอตรวจสอบการชำระเงิน
-        // Insert Data to Database : Payment Table
-        $sql = "INSERT INTO payment (`status`,transaction_image ,total_price)
-                VALUES ('$status', '$image', '$total_price')";
-        if (($conn->query($sql) === TRUE)) {
-            if ((move_uploaded_file($_FILES['image']['tmp_name'], $target))) {
-                echo '<script language="javascript">';
-                echo 'alert("success!")';
-                echo '</script>';
-            }else{
-                echo "<script language='javascript'>";
-                    echo "alert('There was a problem!')";
-                    echo "</script>";
-                
-            }
-            
-        }
-    }else if (isset($_POST['later'])){  //ถ้ามีค่า later คือการจ่ายภายหลัง
-        $status = "waiting"; //status สำหรับรอการจ่ายเงิน
-        // Insert Data to Database : Payment Table
-        $sql = "INSERT INTO payment (`status` ,total_price)
-                VALUES ('$status', '$total_price')";
-        if (($conn->query($sql) === TRUE)) {
-            echo '<script language="javascript">';
-            echo 'alert("success!")';
-            echo '</script>';
-    }else{
-        echo "<script language='javascript'>";
-            echo "alert('There was a problem!')";
-            echo "</script>";
-        
-        }
-    }else{  //กรณีที่เหลือ เช่น กดผิดปุ่ม
-        echo "<script language='javascript'>";
-        echo "alert('กดผิดปุ่ม')";
-        echo "</script>";
-    }
-    $sql = "SELECT * FROM history"; //Select เฉพาะ history ของลูกค้าคนนั้น (ยังไม่ได้ทำ)
+    $sql = "SELECT * 
+    FROM `history` 
+    INNER JOIN `order` 
+    ON `history`.`history_id` = `order`.`history_history_id`
+    INNER JOIN payment
+    ON `order`.payment_payment_id = payment.payment_id
+    INNER JOIN product
+    ON `order`.product_product_id = product.product_id
+    INNER JOIN `user`
+    ON order.customer_user_username = `user`.`username`
+    WHERE order.customer_user_username =  '$username'";
+    
     $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
-?>
+
+    date_default_timezone_set("Asia/Bangkok");
+    $dt = date("Y-m-d");
+    ?>
+    <hr>
+    <h2>ประวัติรายการสั่งซื้อ</h2>
+    <hr>
+    <table style="width:100%">
+    <tr>
+    <th>History ID</th>
+    <th>Name</th>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Total Price</th>
+    <th>Recieve Date</th>
+    <th>Status</th>
+    </tr>
+
+    <?php
+    while($row = $result->fetch_assoc()) { 
+        $now = strtotime($dt);
+        $mydate = strtotime($row['recieve_date']);
+        $remain = ceil(($mydate - $now) / 86400);
+        $status_history = $row['status_history'];?>
+        <tr>
+        <td><?php echo $row['history_id']; ?></td>
+        <td><?php echo $row['firstname'] . " ". $row['lastname']; ?></td>
+        <td><?php echo $row['product_name']; ?></td>
+        <td><?php echo $row['quantity']; ?></td>
+        <td><?php echo $row['total_price']; ?></td>
+        <td><?php echo $row['recieve_date']; ?></td>
+        <td><?php echo $row['status_history']; ?></td>
+        </tr>
+    <?php }
+
+        // Close Connection
+        $conn->close();
+    ?>
+</body>
+</html>
