@@ -53,15 +53,15 @@
     echo "<h4>User : " . $_SESSION['username'] . "</h4>";
     echo "<hr>";
     $_SESSION['id'] = $_POST['add_product'];
-    $_SESSION['amout'] = $_POST['amount'];
+    $_SESSION['amount'] = $_POST['amount'];
     $sql = "SELECT * FROM product WHERE product_id = ". $_SESSION['id'];
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
-    $_SESSION['Total_Price'] = $row['unit_price']*$_SESSION['amout'];
+    $_SESSION['Total_Price'] = $row['unit_price']*$_SESSION['amount'];
     $_SESSION['product_name'] = $row['product_name'];
     
     echo '<form action="order_create.php" method="POST" enctype="multipart/form-data">';
-    echo "<p>คุณได้ทำการสั่งซื้อสินค้า : " . $_SESSION['product_name'] . " จำนวน " . $_SESSION['amout'] . " " . $row['unit'] . "<p>"; //ชื่อ และ จำนวนสินค้าที่ลูกค้าสั่ง
+    echo "<p>คุณได้ทำการสั่งซื้อสินค้า : " . $_SESSION['product_name'] . " จำนวน " . $_SESSION['amount'] . " " . $row['unit'] . "<p>"; //ชื่อ และ จำนวนสินค้าที่ลูกค้าสั่ง
     echo "<p>ราคารวม " . $_SESSION['Total_Price'] . " บาท<p>";
     echo '<div class="form-group-prepend" style="margin-left: 145px;margin-top: 40px;">
             <label for="image">แนบรูปภาพชำระเงิน :</label>
