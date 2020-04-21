@@ -45,7 +45,7 @@
         die("Connection Failed: " . $conn->connect_error);
     } ?>
     <div class="button-2" style="text-align:center;">
-    <a href="home.php" class="btn btn-outline-dark" role="button">History</a>
+    <a href="history_cust.php" class="btn btn-outline-dark" role="button">History</a>
     <div>
 
 
