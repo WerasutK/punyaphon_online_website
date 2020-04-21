@@ -43,8 +43,13 @@
     // Check Connection
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
-    }
+    } ?>
+    <div class="button-2" style="text-align:center;">
+    <a href="home.php" class="btn btn-outline-dark" role="button">History</a>
+    <div>
 
+
+    <?php
     echo "<div class='btn-group'><h1>Home</h1> </div>" . "<a href='logout.php' class='btn btn-outline-danger' role='button'> Log out</a> </div>";
     echo "<hr>"."<h4>สวัสดีคุณ " . $_SESSION['name']  ."  :)". "</h4>";
     echo "<h5>User : " . $_SESSION['username'] .  "</h5>";

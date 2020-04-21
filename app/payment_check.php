@@ -53,11 +53,12 @@
     echo '<th>Valid</th>';
     echo '<th>Invalid</th>';
     echo '</tr>';
-    while($row = $result->fetch_assoc()) { ?>
+    while($row = $result->fetch_assoc()) { 
+        ?>
         <tr>
         <td><?php echo $row['payment_id']; ?></td>
         <td><?php echo $row['status']; ?></td>
-        <td><img src="receipt/<?php echo $row['transaction_image']; ?>" class='img' alt='' width='200' height></td>
+        <td><a href="receipt/<?php echo $row['transaction_image']; ?>"><img src="receipt/<?php echo $row['transaction_image']; ?>" class='img' alt='' width='200' height></td>
         <td><?php echo $row['transaction_time']; ?></td>
         <td><?php echo $row['total_price']; ?></td>
         <td><form action="" method="POST">
@@ -80,22 +81,7 @@
                 WHERE payment_id=$payment_id";
         $result = ($conn->query($sql) === TRUE);
 
-        $status_history = "preparing";
-
-        $sql1 = "INSERT INTO `history` (`datetime`, `status_history`)
-                VALUES ('$dt','$status_history')";
-        $result1 = ($conn->query($sql1) === TRUE);
-
-        $sql2 = "SELECT history_id FROM history ORDER BY history_id DESC LIMIT 1";
-        $result2 = $conn->query($sql2);
-        $row = mysqli_fetch_array($result2);
-        $history_id = $row['history_id'];
-
-        $sql3 = "UPDATE `order` SET `history_history_id`= $history_id 
-                WHERE payment_payment_id=$payment_id";
-        $result3 = ($conn->query($sql3) === TRUE);
-
-        if($result3){
+        if($result){
             echo "<script>
             alert('Successful!');
             window.location='payment_check.php';
@@ -116,21 +102,11 @@
         
         $status_history = "problem";
 
-        $sql1 = "INSERT INTO `history` (`datetime`, `status_history`)
-                VALUES ('$dt', '$status_history')";
+        $sql1 = "UPDATE `history` SET `status_history` = '$status_history'
+                WHERE history_id = $payment_id";
         $result1 = ($conn->query($sql1) === TRUE);
-        
-        
-        $sql2 = "SELECT history_id FROM history ORDER BY history_id DESC LIMIT 1";
-        $result2 = $conn->query($sql2);
-        $row = mysqli_fetch_array($result2);
-        $history_id = $row['history_id'];
 
-        $sql3 = "UPDATE `order` SET history_history_id=$history_id 
-                WHERE payment_payment_id=$payment_id";
-        $result3 = ($conn->query($sql3) === TRUE);
-
-        if($result3){
+        if($result1){
             echo "<script>
             alert('Successful!');
             window.location='payment_check.php';

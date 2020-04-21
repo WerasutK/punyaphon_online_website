@@ -65,11 +65,26 @@
                 $sql1 = "SELECT payment_id FROM payment ORDER BY payment_id DESC limit 1";
                 $result1 = $conn->query($sql1);
                 $row = mysqli_fetch_array($result1);
-                $payment_id = $row['payment_id'];
+                $payment_id = $row['payment_id']; #ดึงมา insert ใน order
     
                 $sql2 = "INSERT INTO `order` (customer_user_username, recieve_date, payment_payment_id, product_product_id, quantity)
                          VALUES ('$username', '$recieve',$payment_id, $id, $quantity)";
                 $result2 = ($conn->query($sql2) === TRUE);
+
+                $status_history = "preparing";
+                $sql3 = "INSERT INTO `history` (`datetime`, `status_history`)
+                VALUES ('$dt','$status_history')";
+                $result3 = ($conn->query($sql3) === TRUE);
+
+                $sql4 = "SELECT history_id FROM history ORDER BY history_id DESC LIMIT 1";
+                $result4 = $conn->query($sql4);
+                $row = mysqli_fetch_array($result4);
+                $history_id = $row['history_id'];
+
+                $sql5 = "UPDATE `order` SET `history_history_id`= $history_id 
+                WHERE payment_payment_id=$payment_id";
+                $result5 = ($conn->query($sql5) === TRUE);
+
                 if($result2){
                     echo "<script>
                     alert('Successful!');
