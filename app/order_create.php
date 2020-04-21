@@ -43,6 +43,7 @@
     $username = $_SESSION["username"];
     $recieve = $_POST["recieve"]; //recieve date
     $id = $_SESSION["id"];
+    $quantity = $_SESSION["amount"];
 
     date_default_timezone_set("Asia/Bangkok");
     $dt = date("Y-m-d H:i:s");
@@ -66,9 +67,15 @@
                 $row = mysqli_fetch_array($result1);
                 $payment_id = $row['payment_id'];
     
-                $sql2 = "INSERT INTO `order` (customer_user_username, recieve_date, payment_payment_id, product_product_id)
-                         VALUES ('$username', '$recieve',$payment_id, $id)";
+                $sql2 = "INSERT INTO `order` (customer_user_username, recieve_date, payment_payment_id, product_product_id, quantity)
+                         VALUES ('$username', '$recieve',$payment_id, $id, $quantity)";
                 $result2 = ($conn->query($sql2) === TRUE);
+                if($result2){
+                    echo "<script>
+                    alert('Successful!');
+                    window.location='history_cust.php';
+                    </script>";
+                }
 
 
             }else{      //กรณีไม่ได้แนบรูปภาพ
