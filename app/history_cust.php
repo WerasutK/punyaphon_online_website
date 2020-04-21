@@ -31,7 +31,7 @@
 </head>
 <body>
 <div class="button-2" style="text-align:center;">
-    <a href="staff.php" class="btn btn-outline-dark" role="button">Back</a>
+    <a href="home.php" class="btn btn-outline-dark" role="button">Back</a>
 <div>
 <?php
     $username = $_SESSION['username'];
