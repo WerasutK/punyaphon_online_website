@@ -1,6 +1,6 @@
 <?php
 
-    //session_start();
+    session_start();
 
     //if (!isset($_SESSION['username'])) {
     //    header('Location: login.php');
@@ -80,10 +80,10 @@
                 WHERE payment_id=$payment_id";
         $result = ($conn->query($sql) === TRUE);
 
-        $status = "preparing";
+        $status_history = "preparing";
 
         $sql1 = "INSERT INTO `history` (`datetime`, `status`)
-                VALUES ('$dt','$status')";
+                VALUES ('$dt','$status_history')";
         $result1 = ($conn->query($sql1) === TRUE);
 
         $sql2 = "SELECT history_id FROM history ORDER BY history_id DESC LIMIT 1";
@@ -114,10 +114,10 @@
                 WHERE payment_id=$payment_id";
         $result = ($conn->query($sql) === TRUE);
         
-        $status = "problem";
+        $status_history = "problem";
 
         $sql1 = "INSERT INTO `history` (`datetime`, `status`)
-                VALUES ('$dt', '$status')";
+                VALUES ('$dt', '$status_history')";
         $result1 = ($conn->query($sql1) === TRUE);
         
         
