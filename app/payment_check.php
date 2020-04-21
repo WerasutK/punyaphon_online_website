@@ -82,7 +82,7 @@
 
         $status_history = "preparing";
 
-        $sql1 = "INSERT INTO `history` (`datetime`, `status`)
+        $sql1 = "INSERT INTO `history` (`datetime`, `status_history`)
                 VALUES ('$dt','$status_history')";
         $result1 = ($conn->query($sql1) === TRUE);
 
@@ -116,7 +116,7 @@
         
         $status_history = "problem";
 
-        $sql1 = "INSERT INTO `history` (`datetime`, `status`)
+        $sql1 = "INSERT INTO `history` (`datetime`, `status_history`)
                 VALUES ('$dt', '$status_history')";
         $result1 = ($conn->query($sql1) === TRUE);
         
