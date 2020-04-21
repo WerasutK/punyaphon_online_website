@@ -1,6 +1,6 @@
 <?php
 
-    //session_start();
+    session_start();
 
     //if (!isset($_SESSION['username'])) {
     //    header('Location: login.php');
@@ -56,33 +56,68 @@
 
     date_default_timezone_set("Asia/Bangkok");
     $dt = date("Y-m-d");
+    ?>
+    <hr>
+    <h2>ประวัติรายการสั่งซื้อ</h2>
+    <hr>
+    <table style="width:100%">
+    <tr>
+    <th>History ID</th>
+    <th>Name</th>
+    <th>Product</th>
+    <th>Quantity</th>
+    <th>Total Price</th>
+    <th>Recieve Date</th>
+    <th>Time Remaining</th>
+    <th>Status</th>
+    </tr>
 
-    echo '<table style="width:100%">';
-    echo '<tr>';
-    echo '<th>History ID</th>';
-    echo '<th>Name</th>';
-    echo '<th>Quantity</th>';
-    echo '<th>Total Price</th>';
-    echo '<th>Recieve Date</th>';
-    echo '<th>Remaining</th>';
-    echo '</tr>';
-
+    <?php
     while($row = $result->fetch_assoc()) { 
         $now = strtotime($dt);
         $mydate = strtotime($row['recieve_date']);
-        $remain = ceil(abs($mydate - $now) / 86400);?>
+        $remain = ceil(($mydate - $now) / 86400);
+        $status_history = $row['status_history'];?>
         <tr>
         <td><?php echo $row['history_id']; ?></td>
         <td><?php echo $row['firstname'] . " ". $row['lastname']; ?></td>
+        <td><?php echo $row['product_name']; ?></td>
         <td><?php echo $row['quantity']; ?></td>
         <td><?php echo $row['total_price']; ?></td>
         <td><?php echo $row['recieve_date']; ?></td>
-        <?php if (!($remain < 0)){
-            echo '<td>' .$remain; 
+        <?php if (!($status_history === 'finished' || $status_history === 'problem')){
+            echo '<td>' .$remain. '</td>'; 
         }else{
             echo '<td>-'; }?></td>
+
+        <?php if ($status_history === 'preparing'){ ?>
+            <td><form action="" method="POST">
+            <button type='submit' class='btn btn-info px-4' style='margin-top:20px;' name='finished' value='<?php echo $row['history_id']; ?>'>Finished</button>
+            </form>
+        </td> <?php }else{
+            echo '<td>'.$row['status_history'] . '</td>';
+        } ?>
         </tr>
-    <?php } 
+    <?php }
+
+    if (isset($_POST['finished'])){
+        $history_id = $_POST['finished'];
+        $sql = "UPDATE history SET `status_history`='finished'
+                WHERE `history`.`history_id`=$history_id";
+        $result = ($conn->query($sql) === TRUE);
+        if($result){
+            echo "<script>
+            alert('Successful!');
+            window.location='history_staff.php';
+            </script>";
+        } else {
+            echo "<script>
+            alert('Error!');
+            window.location='history_staff.php';
+            </script>";         
+        }
+    }
+
         // Close Connection
         $conn->close();
     ?>
