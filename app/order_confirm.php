@@ -63,6 +63,13 @@
     echo '<form action="order_create.php" method="POST" enctype="multipart/form-data">';
     echo "<p>คุณได้ทำการสั่งซื้อสินค้า : " . $_SESSION['product_name'] . " จำนวน " . $_SESSION['amount'] . " " . $row['unit'] . "<p>"; //ชื่อ และ จำนวนสินค้าที่ลูกค้าสั่ง
     echo "<p>ราคารวม " . $_SESSION['Total_Price'] . " บาท<p>";
+    ?> 
+    <div style="border: 3px dashed #f08080;background-color:#FFFFFF">
+    <p>เลขบัญชี : 008-8-95417-3</p>
+    <p>ชื่อบัญชี : นางสาวนัทธวดี สุขเทียบ</p>
+    <p>ธนาคาร : กสิกร</p>
+    </div>
+    <?php
     echo '<div class="form-group-prepend" style="margin-left: 145px;margin-top: 40px;">
             <label for="image">แนบรูปภาพชำระเงิน :</label>
             <input type="file" id="image" name="image">
