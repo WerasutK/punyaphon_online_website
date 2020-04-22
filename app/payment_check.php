@@ -2,9 +2,14 @@
 
     session_start();
 
-    //if (!isset($_SESSION['username'])) {
-    //    header('Location: login.php');
-    //}
+    if ((!isset($_SESSION['username'])) || $_SESSION['type'] != 'staff') {
+        session_destroy();
+        // header('Location: login.php');
+        echo "<script language='javascript'>;
+                    alert('Permission Denied!');
+                    window.location='login.php';
+            </script>";
+    }
 
 ?>
 <!DOCTYPE html>
