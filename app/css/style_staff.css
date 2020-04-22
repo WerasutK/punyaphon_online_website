@@ -17,13 +17,13 @@ h1, h4, p, .card-text{
 
 .card{
     margin-top: 30px;
+    text-align: center;
 }
 
 .card-title{
     font-weight: bold;
     height: 40px;
     background-color: lightpink;
-    text-align: center;
     padding-top: 7px;
 }
 

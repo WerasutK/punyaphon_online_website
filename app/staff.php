@@ -73,7 +73,7 @@
 
         while($row = $result->fetch_assoc()) {
             echo "<div class='col-md-4'>";
-            echo "<div class='card' style='width: 18rem;'>";
+            echo "<div class='card' style='width: 20srem;'>";
             echo "<h5 class='card-title'>" . $row['product_name'] ."</h5>";
             echo "<center>";
             echo "<img style='width:50%; height:50%;' class='card-img-top' src='product/" . $row['image'] . "'>";
