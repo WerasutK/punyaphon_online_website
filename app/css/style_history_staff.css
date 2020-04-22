@@ -1,0 +1,14 @@
+.container{
+    background-color: white;
+    border-style: solid;
+    border-radius: 10px;
+    border-width: 1px;
+    margin-top: 40px;
+}
+
+body{
+    background-image: url('../images/background2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 100px;
+}
