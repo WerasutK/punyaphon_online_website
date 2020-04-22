@@ -43,6 +43,8 @@
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     }
+    
+    //Query
     $sql = "SELECT * 
     FROM `history` 
     INNER JOIN `order` 
@@ -53,8 +55,10 @@
     ON `order`.product_product_id = product.product_id
     INNER JOIN `user`
     ON order.customer_user_username = `user`.`username`
-    WHERE order.customer_user_username =  '$username'";
+    WHERE order.customer_user_username =  '$username'
+    ORDER BY history.history_id DESC";
     
+    //Table of history for customer
     $result = $conn->query($sql);
 
     date_default_timezone_set("Asia/Bangkok");
