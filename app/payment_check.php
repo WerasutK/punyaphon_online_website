@@ -69,7 +69,7 @@
         <tr>
         <td><?php echo $row['payment_id']; ?></td>
         <td><?php echo $row['status']; ?></td>
-        <td><a href="receipt/<?php echo $row['transaction_image']; ?>"><img src="receipt/<?php echo $row['transaction_image']; ?>" class='img' alt='' width='200' height></td>
+        <td><a href="receipt/<?php echo $row['transaction_image']; ?>" target="_blank"><img src="receipt/<?php echo $row['transaction_image']; ?>" class='img' alt='' width='200' height></td>
         <td><?php echo $row['transaction_time']; ?></td>
         <td><?php echo $row['total_price']; ?></td>
         <td><form action="" method="POST">
