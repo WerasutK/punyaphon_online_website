@@ -41,6 +41,7 @@
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     }
+    // Query 1
     $sql = "SELECT * 
     FROM `history` 
     INNER JOIN `order` 
@@ -50,8 +51,12 @@
     INNER JOIN product
     ON `order`.product_product_id = product.product_id
     INNER JOIN `user`
-    ON order.customer_user_username = `user`.`username`";
+    ON order.customer_user_username = `user`.`username`
+    WHERE `history`.`status_history` = 'preparing'
+    ORDER BY order.recieve_date ASC";
     
+
+    //Table of history
     $result = $conn->query($sql);
 
     date_default_timezone_set("Asia/Bangkok");
@@ -99,7 +104,7 @@
         } ?>
         </tr>
     <?php }
-
+    //When check finished button then update status to 'finished'
     if (isset($_POST['finished'])){
         $history_id = $_POST['finished'];
         $sql = "UPDATE history SET `status_history`='finished'
@@ -118,6 +123,50 @@
         }
     }
 
+    // Query 2
+    $sql = "SELECT * 
+    FROM `history` 
+    INNER JOIN `order` 
+    ON `history`.`history_id` = `order`.`history_history_id`
+    INNER JOIN payment
+    ON `order`.payment_payment_id = payment.payment_id
+    INNER JOIN product
+    ON `order`.product_product_id = product.product_id
+    INNER JOIN `user`
+    ON order.customer_user_username = `user`.`username`
+    WHERE `history`.`status_history` = 'finished'
+    ORDER BY order.recieve_date DESC";
+    
+
+    //Table of history
+    $result = $conn->query($sql);
+    
+    while($row = $result->fetch_assoc()) { 
+        $now = strtotime($dt);
+        $mydate = strtotime($row['recieve_date']);
+        $remain = ceil(($mydate - $now) / 86400);
+        $status_history = $row['status_history'];?>
+        <tr>
+        <td><?php echo $row['history_id']; ?></td>
+        <td><?php echo $row['firstname'] . " ". $row['lastname']; ?></td>
+        <td><?php echo $row['product_name']; ?></td>
+        <td><?php echo $row['quantity']; ?></td>
+        <td><?php echo $row['total_price']; ?></td>
+        <td><?php echo $row['recieve_date']; ?></td>
+        <?php if (!($status_history === 'finished' || $status_history === 'problem')){
+            echo '<td>' .$remain. '</td>'; 
+        }else{
+            echo '<td>-'; }?></td>
+
+        <?php if ($status_history === 'preparing'){ ?>
+            <td><form action="" method="POST">
+            <button type='submit' class='btn btn-info px-4' style='margin-top:20px;' name='finished' value='<?php echo $row['history_id']; ?>'>Finished</button>
+            </form>
+        </td> <?php }else{
+            echo '<td>'.$row['status_history'] . '</td>';
+        } ?>
+        </tr>
+    <?php } 
         // Close Connection
         $conn->close();
     ?>
