@@ -2,9 +2,14 @@
 
     session_start();
 
-    //if (!isset($_SESSION['username'])) {
-    //    header('Location: login.php');
-    //}
+    if ((!isset($_SESSION['username'])) || $_SESSION['type'] != 'staff') {
+        session_destroy();
+        // header('Location: login.php');
+        echo "<script language='javascript'>;
+                    alert('Permission Denied!');
+                    window.location='login.php';
+            </script>";
+    }
 
 ?>
 <!DOCTYPE html>
@@ -64,7 +69,7 @@
         <tr>
         <td><?php echo $row['payment_id']; ?></td>
         <td><?php echo $row['status']; ?></td>
-        <td><a href="receipt/<?php echo $row['transaction_image']; ?>"><img src="receipt/<?php echo $row['transaction_image']; ?>" class='img' alt='' width='200' height></td>
+        <td><a href="receipt/<?php echo $row['transaction_image']; ?>" target="_blank"><img src="receipt/<?php echo $row['transaction_image']; ?>" class='img' alt='' width='200' height></td>
         <td><?php echo $row['transaction_time']; ?></td>
         <td><?php echo $row['total_price']; ?></td>
         <td><form action="" method="POST">
@@ -129,7 +134,7 @@
     echo '</table>';
     echo '</div>';
     echo '<div class="button-2" style="text-align:center; margin-top: 30px;">
-            <a href="staff.php" class="btn btn-outline-dark" role="button">Back</a>
+            <a href="staff.php" class="btn btn-warning" role="button">Back</a>
         </div>';
 
     ?>

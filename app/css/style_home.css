@@ -1,8 +1,7 @@
 body{
-    background-image: url('../images/background3.png');
+    background-image: url('../images/background7.png');
     background-size: cover;
-    background-position-y: 50px;
-    background-position-x: -260px;
+
     background-repeat: no-repeat;
 }
 

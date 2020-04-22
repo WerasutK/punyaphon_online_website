@@ -2,8 +2,13 @@
 
     session_start();
 
-    if (!isset($_SESSION['username'])) {
-        header('Location: login.php');
+    if ((!isset($_SESSION['username'])) || $_SESSION['type'] != 'staff') {
+        session_destroy();
+        // header('Location: login.php');
+        echo "<script language='javascript'>;
+                    alert('Permission Denied!');
+                    window.location='login.php';
+            </script>";
     }
 
 ?>
@@ -106,6 +111,7 @@
             // Session staff username
             $username = $_SESSION['username'];
             $_SESSION['username'] = $username;
+            $_SESSION['type'] = 'staff';
             header("Location: create_product.php");
         }
 
@@ -114,6 +120,7 @@
             // Session staff username
             $username = $_SESSION['username'];
             $_SESSION['username'] = $username;
+            $_SESSION['type'] = 'staff';
             header("Location: update_product_page.php");
         }
 
@@ -122,6 +129,7 @@
             // Session staff username
             $username = $_SESSION['username'];
             $_SESSION['username'] = $username;
+            $_SESSION['type'] = 'staff';
             header("Location: delete_product.php");
         }
 
@@ -130,6 +138,7 @@
             // Session staff username
             $username = $_SESSION['username'];
             $_SESSION['username'] = $username;
+            $_SESSION['type'] = 'staff';
             header("Location: payment_check.php");
         }
 
@@ -138,6 +147,7 @@
             // Session staff username
             $username = $_SESSION['username'];
             $_SESSION['username'] = $username;
+            $_SESSION['type'] = 'staff';
             header("Location: history_staff.php");
         }
 

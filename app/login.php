@@ -91,6 +91,7 @@
                 $row = mysqli_fetch_array($result);
                 $_SESSION['name'] = $row['firstname'] . " " . $row['lastname']; //Session ชื่อของ Customer
                 $_SESSION['username'] = $row['username'];
+                $_SESSION['type'] = 'customer';
                 header('Location: home.php');
             } else {
                 $sql = "SELECT * FROM user WHERE username='$username' AND `password`='$password'";
@@ -99,6 +100,7 @@
                     $row = mysqli_fetch_array($result);
                     $_SESSION['name'] = $row['firstname'] . " " . $row['lastname']; //Session ชื่อของ Staff
                     $_SESSION['username'] = $row['username'];
+                    $_SESSION['type'] = 'staff';
                     header('Location: staff.php');
                 } else {
                     echo "<script language='javascript'>";
