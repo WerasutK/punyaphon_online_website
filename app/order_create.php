@@ -85,7 +85,17 @@
                 WHERE payment_payment_id=$payment_id";
                 $result5 = ($conn->query($sql5) === TRUE);
 
-                if($result2){
+                $sql6 = "SELECT `amount` FROM product WHERE product_id = $id";
+                $result6 = $conn->query($sql6);
+                $row = mysqli_fetch_array($result6);
+                $amount = $row['amount']; #ดึง amount
+
+                $total_amount = $amount - $quantity;
+                $sql7 = "UPDATE `product` SET `amount`= $total_amount
+                WHERE product_id=$id";
+                $result7 = ($conn->query($sql7) === TRUE);
+
+                if($result7){
                     echo "<script>
                     alert('Successful!');
                     window.location='history_cust.php';
