@@ -60,7 +60,7 @@
     echo "<p>คุณได้ทำการสั่งซื้อสินค้า : " . $_SESSION['product_name'] . " จำนวน " . $_SESSION['amount'] . " " . $row['unit'] . "<p>"; //ชื่อ และ จำนวนสินค้าที่ลูกค้าสั่ง
     echo "<p>ราคารวม " . $_SESSION['Total_Price'] . " บาท<p>";
     ?> 
-    <img src="images/payment2.jpg" class='img' alt='' width='280' length='280'>
+    <img src="images/payment.jpg" class='img' alt='' width='280' length='280'>
     <?php
     echo '<div class="form-group-prepend" style="margin-left: 145px;margin-top: 40px;">
             <label for="image">แนบรูปภาพชำระเงิน :</label>
