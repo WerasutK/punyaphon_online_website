@@ -134,7 +134,7 @@
     echo '</table>';
     echo '</div>';
     echo '<div class="button-2" style="text-align:center; margin-top: 30px;">
-            <a href="staff.php" class="btn btn-outline-dark" role="button">Back</a>
+            <a href="staff.php" class="btn btn-warning" role="button">Back</a>
         </div>';
 
     ?>
