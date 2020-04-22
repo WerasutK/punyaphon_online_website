@@ -2,7 +2,7 @@ body{
     background-image: url('../images/background6.png');
     background-size: cover;
     background-repeat: no-repeat;
-    background-position-y: 200px;
+    background-position-y: 300px;
 }
 
 h1 {
@@ -25,3 +25,6 @@ form{
 .btn-info, .btn-secondary{
     width: 150px;
 }
+ .btn-info{
+     margin-top: 20px;
+ }
