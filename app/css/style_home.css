@@ -19,20 +19,27 @@ body{
     padding-top: 7px;
 }
 
+
 .card-body{
     background-color: white;
 }
 
-h1 {
-    padding-right: 5px;
-    border-right: solid;
+
+.btn-outline-danger, .btn-outline-dark{
+    width: 87px;
+    height: 38px;
 }
+
+
+h1 {
+    padding-right: 9px;
+    border-right: solid;
+    height: 80px;
+}
+
 
 .btn-group{
     margin-top: 20px;
+    margin-left: 100px;
 }
 
-.btn-outline-danger{
-    margin-top: 15px;
-    margin-left: 10px;
-}

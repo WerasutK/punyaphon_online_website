@@ -44,13 +44,21 @@
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     } ?>
-    <div class="button-2" style="text-align:center;">
-    <a href="history_cust.php" class="btn btn-outline-dark" role="button">History</a>
-    <div>
+
 
 
     <?php
-    echo "<div class='btn-group'><h1>Home</h1> </div>" . "<a href='logout.php' class='btn btn-outline-danger' role='button'> Log out</a> </div>";
+    echo "<div class='container mt-4'>";
+    echo"<div class='btn-group'>
+            <h1>Home</h1>
+        <div class='col-md-2'>
+            <div class='button-1'> 
+                <a href='history_cust.php' class='btn btn-outline-dark' role='button'>History</a>
+                <a href='logout.php' class='btn btn-outline-danger' style='margin-top: 5px;' role='button'> Log out</a>
+            </div>
+        </div>";
+    
+    echo "</div>";
     echo "<hr>"."<h4>สวัสดีคุณ " . $_SESSION['name']  ."  :)". "</h4>";
     echo "<h5>User : " . $_SESSION['username'] .  "</h5>";
 
