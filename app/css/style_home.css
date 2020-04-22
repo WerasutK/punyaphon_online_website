@@ -32,6 +32,7 @@ body{
 
 
 h1 {
+    padding-top: 6px;
     padding-right: 9px;
     border-right: solid;
     height: 80px;
