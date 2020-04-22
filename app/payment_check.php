@@ -12,7 +12,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Payment-Check</title>
+    <link rel="stylesheet" href="css/style_payment.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
@@ -22,6 +23,7 @@
         body {
             font-family: 'Prompt', sans-serif;
             text-align: center;
+            margin-top: 50px;
         }
         img {
             width: 100px;
@@ -30,9 +32,7 @@
         </style>
 </head>
 <body>
-<div class="button-2" style="text-align:center;">
-    <a href="staff.php" class="btn btn-outline-dark" role="button">Back</a>
-<div>
+
 <?php
     // Create Connection
     $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
@@ -43,17 +43,23 @@
     }
     $sql = "SELECT * FROM payment WHERE `status` ='checking'";
     $result = $conn->query($sql);
-    echo '<table style="width:100%">';
+
+    echo '<div class="container">';
+    echo '<h2 class="mt-4">Check Reciept Status</h2>';
+    echo '<table class="table table-bordered table-hover mb-4" style="margin-top: 30px;">';
+    echo '<thead class="table-dark">';
     echo '<tr>';
-    echo '<th>Payment ID</th>';
-    echo '<th>Status</th>';
-    echo '<th>Image</th>';
-    echo '<th>Datetime</th>';
-    echo '<th>Total Price</th>';
-    echo '<th>Valid</th>';
-    echo '<th>Invalid</th>';
+    echo '<th scope="col">Payment ID</th>';
+    echo '<th scope="col">Status</th>';
+    echo '<th scope="col">Image</th>';
+    echo '<th scope="col">Datetime</th>';
+    echo '<th scope="col">Total Price</th>';
+    echo '<th scope="col">Valid</th>';
+    echo '<th scope="col">Invalid</th>';
     echo '</tr>';
-    while($row = $result->fetch_assoc()) { 
+    echo '</thead>';
+
+    while($row = $result->fetch_assoc()) {
         ?>
         <tr>
         <td><?php echo $row['payment_id']; ?></td>
@@ -62,11 +68,11 @@
         <td><?php echo $row['transaction_time']; ?></td>
         <td><?php echo $row['total_price']; ?></td>
         <td><form action="" method="POST">
-            <button type='submit' class='btn btn-info px-4' style='margin-top:20px;' name='valid' value='<?php echo $row['payment_id']; ?>'>ผ่าน</button>
+            <button type='submit' class='btn btn-info px-4' name='valid' value='<?php echo $row['payment_id']; ?>'>ผ่าน</button>
             </form>
         </td>
         <td><form action="" method="POST">
-            <button type='submit' class='btn btn-info px-4' style='margin-top:20px;' name='invalid' value='<?php echo $row['payment_id']; ?>'>ไม่ผ่าน</button>
+            <button type='submit' class='btn btn-info px-4' name='invalid' value='<?php echo $row['payment_id']; ?>'>ไม่ผ่าน</button>
             </form>
         </td>
         </tr>
@@ -118,11 +124,16 @@
             </script>";         
         }
     }
-
-
     // Close Connection
     $conn->close();
+    echo '</table>';
+    echo '</div>';
+    echo '<div class="button-2" style="text-align:center; margin-top: 30px;">
+            <a href="staff.php" class="btn btn-outline-dark" role="button">Back</a>
+        </div>';
+
     ?>
+
 </body>
 </html>
 

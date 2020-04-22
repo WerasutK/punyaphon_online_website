@@ -1,0 +1,26 @@
+body{
+    background-image: url('../images/background5.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position-y: 350px;
+}
+
+.btn-info{
+    width: 93px;
+    height: 38px;
+}
+
+.container{
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 10px;
+}
+
+th{
+    height: 45px;
+    font-weight: normal;
+}
+
+.card{
+    border-style: solid;
+}
