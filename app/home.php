@@ -85,7 +85,7 @@
         echo '<form action="order_confirm.php" method="POST">';
         $amount = $row['amount'];
         if ($amount === '0'){
-            echo "<p class='card-text'>สินค้าหมด</p>";
+            echo "<p class='card-text'>Out of Stock!</p>";
         }else{
             echo '<input type="text" name="amount" class="form-control" value="1"/>';
             echo "<button type='submit' class='btn btn-info px-4'style='margin-top:20px;'name='add_product' value=".$row['product_id'].">สั่งซื้อ</button>"; //กดปุ่ม Submit จะส่งค่า ID และ จำนวนที่สั่งไปยังหน้า order
