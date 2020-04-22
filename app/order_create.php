@@ -51,63 +51,70 @@
     
     if (isset($_POST['confirm']) && ($recieve)) {   //ตรวจสอบการกดปุ่ม confirm
         if($recieve < date("Y-m-d", strtotime('+7 day')) && $recieve > date("Y-m-d", strtotime('today'))){ //ตรวจสอบวันที่ระบุ ต้องอยู่ภายใน 7 วันนับจากวันที่สั่ง
-            $image = $_FILES['image']['name'];
-            if ($image != ""){   //check image not empty.
-                // Path to store the uploaded image
-                $target = "receipt/".basename($_FILES['image']['name']);
+            $sql6 = "SELECT `amount` FROM product WHERE product_id = $id";
+                    $result6 = $conn->query($sql6);
+                    $row = mysqli_fetch_array($result6);
+                    $amount = $row['amount'];   //Query amount of product.
+                    $total_amount = $amount - $quantity;
+                if ($quantity < $amount){
+                    $image = $_FILES['image']['name'];
+                    
+                    if ($image != ""){   //check image not empty.
+                        // Path to store the uploaded image
+                        $target = "receipt/".basename($_FILES['image']['name']);
 
-                $status = "checking"; //status รอตรวจสอบการชำระเงิน
-                // Insert Data to Database : Payment Table
-                $sql = "INSERT INTO payment (`status`, transaction_image, transaction_time, total_price)
-                        VALUES ('$status', '$image', '$dt', '$total_price')";
-                $result = (($conn->query($sql) === TRUE) && (move_uploaded_file($_FILES['image']['tmp_name'], $target)));
+                        $status = "checking"; //status รอตรวจสอบการชำระเงิน
+                        // Insert Data to Database : Payment Table
+                        $sql = "INSERT INTO payment (`status`, transaction_image, transaction_time, total_price)
+                                VALUES ('$status', '$image', '$dt', '$total_price')";
+                        $result = (($conn->query($sql) === TRUE) && (move_uploaded_file($_FILES['image']['tmp_name'], $target)));
 
-                $sql1 = "SELECT payment_id FROM payment ORDER BY payment_id DESC limit 1";
-                $result1 = $conn->query($sql1);
-                $row = mysqli_fetch_array($result1);
-                $payment_id = $row['payment_id']; //Query payment_id for insert into order table.
-    
-                $sql2 = "INSERT INTO `order` (customer_user_username, recieve_date, payment_payment_id, product_product_id, quantity)
-                         VALUES ('$username', '$recieve',$payment_id, $id, $quantity)";
-                $result2 = ($conn->query($sql2) === TRUE); //Insert into order table.
+                        $sql1 = "SELECT payment_id FROM payment ORDER BY payment_id DESC limit 1";
+                        $result1 = $conn->query($sql1);
+                        $row = mysqli_fetch_array($result1);
+                        $payment_id = $row['payment_id']; //Query payment_id for insert into order table.
+            
+                        $sql2 = "INSERT INTO `order` (customer_user_username, recieve_date, payment_payment_id, product_product_id, quantity)
+                                VALUES ('$username', '$recieve',$payment_id, $id, $quantity)";
+                        $result2 = ($conn->query($sql2) === TRUE); //Insert into order table.
 
-                $status_history = "preparing";
-                $sql3 = "INSERT INTO `history` (`datetime`, `status_history`)
-                VALUES ('$dt','$status_history')";
-                $result3 = ($conn->query($sql3) === TRUE);  //Insert into history table.
+                        $status_history = "preparing";
+                        $sql3 = "INSERT INTO `history` (`datetime`, `status_history`)
+                        VALUES ('$dt','$status_history')";
+                        $result3 = ($conn->query($sql3) === TRUE);  //Insert into history table.
 
-                $sql4 = "SELECT history_id FROM history ORDER BY history_id DESC LIMIT 1";
-                $result4 = $conn->query($sql4);
-                $row = mysqli_fetch_array($result4);
-                $history_id = $row['history_id'];   //Query history_id for insert into order table.
+                        $sql4 = "SELECT history_id FROM history ORDER BY history_id DESC LIMIT 1";
+                        $result4 = $conn->query($sql4);
+                        $row = mysqli_fetch_array($result4);
+                        $history_id = $row['history_id'];   //Query history_id for insert into order table.
 
-                $sql5 = "UPDATE `order` SET `history_history_id`= $history_id 
-                WHERE payment_payment_id=$payment_id";
-                $result5 = ($conn->query($sql5) === TRUE); //Update order
+                        $sql5 = "UPDATE `order` SET `history_history_id`= $history_id 
+                        WHERE payment_payment_id=$payment_id";
+                        $result5 = ($conn->query($sql5) === TRUE); //Update order
+        
+                        $sql7 = "UPDATE `product` SET `amount`= $total_amount
+                        WHERE product_id=$id";
+                        $result7 = ($conn->query($sql7) === TRUE); //Update product table.
 
-                $sql6 = "SELECT `amount` FROM product WHERE product_id = $id";
-                $result6 = $conn->query($sql6);
-                $row = mysqli_fetch_array($result6);
-                $amount = $row['amount'];   //Query amount of product.
-
-                $total_amount = $amount - $quantity;
-                $sql7 = "UPDATE `product` SET `amount`= $total_amount
-                WHERE product_id=$id";
-                $result7 = ($conn->query($sql7) === TRUE); //Update product table.
-
-                if($result7){
+                        if($result7){
+                            echo "<script>
+                            alert('Successful!');
+                            window.location='history_cust.php';
+                            </script>";
+                        }
+                }else{
+                    //กรณีไม่ได้แนบรูปภาพ
                     echo "<script>
-                    alert('Successful!');
-                    window.location='history_cust.php';
+                    alert('ไม่ได้แนบรูปภาพ');
+                    window.location='home.php';
                     </script>";
                 }
 
-
-            }else{      //กรณีไม่ได้แนบรูปภาพ
+            }else{
                 echo "<script>
-                alert('ไม่ได้แนบรูปภาพ');
+                alert('สินค้าไม่เพียงพอ');
                 window.location='home.php';
-                </script>";
+                </script>";   
             }
         }else{
         echo "<script>
