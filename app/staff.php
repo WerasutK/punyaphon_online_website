@@ -78,10 +78,10 @@
 
         while($row = $result->fetch_assoc()) {
             echo "<div class='col-md-4'>";
-            echo "<div class='card' style='width: 20srem;'>";
+            echo "<div class='card' style='width: 20srem;height:560px'>";
             echo "<h5 class='card-title'>" . $row['product_name'] ."</h5>";
             echo "<center>";
-            echo "<img style='width:50%; height:50%;' class='card-img-top' src='product/" . $row['image'] . "'>";
+            echo "<img style='width:60%; height:80%;' class='card-img-top' src='product/" . $row['image'] . "'>";
             echo "</center>";
             echo "<div class='card-body'>";
             echo "<h5 class='card-text'>ราคา : " . $row['unit_price'] . " บาท</h5>";

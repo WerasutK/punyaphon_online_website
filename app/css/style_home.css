@@ -20,14 +20,19 @@ body{
 
 .card-body{
     background-color: white;
+    padding-bottom: -80%;
+}
+
+.form{
+    padding-bottom: -50px;
 }
 
 
 .btn-outline-danger, .btn-outline-dark{
     width: 87px;
     height: 38px;
+    
 }
-
 
 h1 {
     padding-top: 6px;
