@@ -38,14 +38,12 @@
 
 <?php
     // Create Connection
-    $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
+    $conn = new mysqli("34.87.109.220", "panyaphol", "password", "db");
 
     // Check Connection
     if ($conn->connect_error) {
         die("Connection Failed: " . $conn->connect_error);
     } ?>
-
-
 
     <?php
     echo "<div class='container mt-4'>";
@@ -87,7 +85,7 @@
         if ($amount === '0'){
             echo "<h4 class='card-text'>Out of Stock!</h4>";
         }else{
-            echo '<input type="text" name="amount" class="form-control" value="1"/>';
+            echo '<input type="number" name="amount" class="form-control" value="1"/>';
             echo "<button type='submit' class='btn btn-info px-4'style='margin-top:20px;'name='add_product' value=".$row['product_id'].">สั่งซื้อ</button>"; //กดปุ่ม Submit จะส่งค่า ID และ จำนวนที่สั่งไปยังหน้า order
             echo '</form>';
         }

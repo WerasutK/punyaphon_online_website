@@ -29,13 +29,13 @@
             background-size: cover;
         }
     </style>
-    <title>Punyaphon's Farm</title>
+    <title>Panyaphol's Farm</title>
 </head>
 
 <body>
     <div class="container" style="margin-top: 50px; text-align: center;">
         <img src="images/Logo.png" style="width:1050px;height:400px;"><br><br>
-        <h1>Welcome to Punyaphon's Farm</h1>
+        <h1>Welcome to Panyaphol's Farm</h1>
         <hr>
         <a href="login.php" class="btn btn-info" role="button">Log in</a>
         <a href="regis.php" class="btn btn-secondary" role="button">Register</a>

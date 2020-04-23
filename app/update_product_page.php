@@ -39,7 +39,7 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-    <title>Administrator Page</title>
+    <title>Update Product</title>
 </head>
 <body>
 
@@ -53,7 +53,7 @@
             $product_id = $_POST['updateProduct'];
 
             // Create Connection
-            $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
+            $conn = new mysqli("34.87.109.220", "panyaphol", "password", "db");
 
             // Check Connection
             if ($conn->connect_error) {

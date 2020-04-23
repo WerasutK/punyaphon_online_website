@@ -63,7 +63,7 @@
     <hr>
     <?php
         // Create Connection
-        $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
+        $conn = new mysqli("34.87.109.220", "panyaphol", "password", "db");
 
         // Check Connection
         if ($conn->connect_error) {

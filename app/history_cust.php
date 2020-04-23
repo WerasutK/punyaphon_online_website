@@ -39,7 +39,7 @@
     $username = $_SESSION['username'];
     echo "<h5>User : " . $username .  "</h5>";
     // Create Connection
-    $conn = new mysqli("34.87.109.220", "werasutk", "password", "db");
+    $conn = new mysqli("34.87.109.220", "panyaphol", "password", "db");
 
     // Check Connection
     if ($conn->connect_error) {
