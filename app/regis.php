@@ -56,8 +56,9 @@
                             <div class="input-group-prepend">
                                 <span class="input-group-text"> <i class="fas fa-user-edit"></i> </span>
                             </div>
-                            <input type="text" class="form-control" id="username" name="username"
-                                placeholder="User name" pattern="[A-Za-z0-9]{1,}" required>
+                            <input type="text" class="form-control" id="username" name="username" minlength='4'
+                                placeholder="User name" pattern="[A-Za-z0-9]{4,}"
+                                title="Must be English language / Number and contain at least 4 characters" required>
                         </div> <!-- form-group// -->
 
                         <div class="form-group input-group">
