@@ -141,7 +141,7 @@
     ON `order`.product_product_id = product.product_id
     INNER JOIN `user`
     ON order.customer_user_username = `user`.`username`
-    WHERE `history`.`status_history` = 'finished'
+    WHERE `history`.`status_history` = 'finished'OR `history`.`status_history` = 'problem'
     ORDER BY order.recieve_date DESC";
     
 
@@ -168,9 +168,9 @@
         <?php if ($status_history === 'preparing'){ ?>
             <td><form action="" method="POST">
             <button type='submit' class='btn btn-info px-4' style='margin-top:20px;' name='finished' value='<?php echo $row['history_id']; ?>'>Finished</button>
-            </form>
-        </td> <?php }else{
-            echo '<td>'.$row['status_history'] . '</td>';
+            </form></td> 
+        <?php }else{
+            echo '<td>'.$row['status_history'].'</td>';
         } ?>
         </tr>
     <?php } 
